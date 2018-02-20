@@ -27,10 +27,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.os.AsyncTask;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +78,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.YELLOW;
 
 public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, Functions {
@@ -341,7 +346,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this, "s "+lista.size(), Toast.LENGTH_SHORT).show();
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -454,10 +458,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }else {
 
-
-
-
-
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
 
                             final String[] emailz = new String[1];
@@ -521,18 +521,15 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
-                public View getInfoWindow(Marker marker) {
-                    return null;
-                }
+                public View getInfoWindow(final Marker marker) {
 
-                @Override
-                public View getInfoContents(final Marker marker) {
+                    
                     View view = getLayoutInflater().inflate(R.layout.info_window, null);
                     TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
                     TextView txLat = (TextView) view.findViewById(R.id.tvLat);
                     TextView txLng = (TextView) view.findViewById(R.id.tvLng);
                     TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
-
+                    Button b = (Button) view.findViewById(R.id.btn);
 
                     LatLng ll = marker.getPosition();
                     txLocality.setText(marker.getTitle());
@@ -540,6 +537,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     txLng.setText("Longitude : " + ll.longitude);
                     txSnippet.setText(marker.getSnippet());
                     return view;
+
+                    
+                }
+
+                @Override
+                public View getInfoContents(final Marker marker) {
+                    return null;
                 }
             });
         }
@@ -639,11 +643,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             }
         });
         
-        if(verificaGPS() == false){
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        }else {
-            mMap.setMyLocationEnabled(true);
-        }
+    
+        mMap.setMyLocationEnabled(true);
 
         //______________________________________________________________________________//
 
@@ -840,7 +841,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < rotas.size(); i++) {
                 po.add(rotas.get(i));
             }
-            po.color(Color.BLUE).width(8);
+            po.color(BLUE).width(8);
             polyline = mMap.addPolyline(po);
 
         } else {

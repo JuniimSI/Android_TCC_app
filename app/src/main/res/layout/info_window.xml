@@ -55,6 +55,12 @@
             android:layout_weight="1"
             android:elevation="13dp"
             android:text="Clique para gerar rota" />
+             <Button
+                android:id="@+id/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/ic_menu_send" />
 
     </LinearLayout>
 

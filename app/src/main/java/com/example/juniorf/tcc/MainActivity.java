@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.content.Context;
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.location.LocationManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -189,12 +192,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initMap(View view) {
-        Intent i = new Intent(this, MapsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("emailOrigem", (this.email));
-        i.putExtras(bundle);
-        startActivity(i);
+        if(verificaGPS()){
+            Intent i = new Intent(this, MapsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("emailOrigem", (this.email));
+            i.putExtras(bundle);
+            startActivity(i);
+        }else{
+            Toast.makeText(MainActivity.this, "Ative o GPS para utilizar o Mapa", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    private boolean verificaGPS(){
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
