@@ -416,48 +416,28 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     }
 
-    public void launchRingDialog() {
-        final ProgressDialog ringProgressDialog = ProgressDialog.show(MapsActivity.this, "Please wait ...", "Downloading Image ...", true);
-        ringProgressDialog.setCancelable(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Here you should write your time consuming task...
-                    // Let the progress ring for 10 seconds...
-                    Thread.sleep(10000);
-                } catch (Exception e) {
-
-                }
-                ringProgressDialog.dismiss();
-            }
-        }).start();
+    public boolean existArroba(String frase){
+        if (frase == null || ! frase.matches("^[0-9]{1,8}$"))
+            return false;
+        return true;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        rotas = new ArrayList<LatLng>();
-        lista = new ArrayList<MyLocation>();
-        //getMarkers();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        if (mMap != null) {
-
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    geraRota(displayLocation(), marker.getPosition());
-                }
-            });
-            mMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
-                @Override
-                public void onInfoWindowLongClick(final Marker marker) {
+    public void detailsFind(final Marker marker) {
                     if(verificaGPS()==false){
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }else if(!existArroba(marker.getSnippet())){
+                        Intent is = new Intent(MapsActivity.this, DetalhesActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("emailOrigem", String.valueOf(email));
+                        bundle.putString("emailDestino", String.valueOf(emailDestinos));
+                        bundle.putString("lat", String.valueOf(marker.getPosition().latitude));
+                        bundle.putString("lng", String.valueOf(marker.getPosition().longitude));
+                        bundle.putString("typeToken", typeToken);
+                        bundle.putString("place_id", marker.getSnippet());
+                        bundle.putString("local", marker.getTitle());
+                        is.putExtras(bundle);
+                        startActivity(is);
                     }else {
-
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
 
                             final String[] emailz = new String[1];
@@ -517,27 +497,51 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                     }
                 }
-            });
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        rotas = new ArrayList<LatLng>();
+        lista = new ArrayList<MyLocation>();
+        //getMarkers();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        if (mMap != null) {
+
+          //  mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            //      @Override
+            //  public void onInfoWindowClick(Marker marker) {
+            //      geraRota(displayLocation(), marker.getPosition());
+            //  }
+            //});
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(final Marker marker) {
 
-                    
                     View view = getLayoutInflater().inflate(R.layout.info_window, null);
                     TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
                     TextView txLat = (TextView) view.findViewById(R.id.tvLat);
                     TextView txLng = (TextView) view.findViewById(R.id.tvLng);
                     TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
-                    Button b = (Button) view.findViewById(R.id.btn);
+                    Button geraRotaz = (Button) view.findViewById(R.id.geraRotaBtn);
+                    geraRotaz.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            geraRota(displayLocation(), marker.getPosition());
+                        }
+                    });
+                    Button details = (Button) view.findViewById(R.id.detalheBtn);
 
                     LatLng ll = marker.getPosition();
                     txLocality.setText(marker.getTitle());
                     txLat.setText("Latitude : " + ll.latitude);
                     txLng.setText("Longitude : " + ll.longitude);
                     txSnippet.setText(marker.getSnippet());
-                    return view;
 
+
+                    return view;
                     
                 }
 

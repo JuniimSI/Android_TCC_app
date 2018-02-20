@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Base.CardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:background="@android:color/holo_blue_light"
+    android:orientation="horizontal"
+    android:padding="20dp">
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_height="162dp"
+        app:srcCompat="@drawable/bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +21,11 @@
         android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/tvLocality"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8" />
+        <TextView
+            android:id="@+id/tvLocality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8" />
 
 
         <TextView
@@ -41,26 +45,23 @@
 
         <Button
             android:id="@+id/detalheBtn"
-            style="@style/AppIntroButtonStyleCompat"
+            style="@style/AlertDialog.AppCompat.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Segure para detalhes" />
+            android:onClick="detailsSearch"
+            android:text="Segure para detalhes"
+            tools:style="@style/Widget.AppCompat.Button.Borderless" />
 
         <Button
             android:id="@+id/geraRotaBtn"
-            style="@style/AppIntroButtonStyleCompat"
+            style="@style/AlertDialog.AppCompat.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="13dp"
             android:text="Clique para gerar rota" />
-             <Button
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@android:drawable/ic_menu_send" />
+
 
     </LinearLayout>
 
