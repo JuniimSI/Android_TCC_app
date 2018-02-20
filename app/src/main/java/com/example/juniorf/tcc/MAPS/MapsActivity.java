@@ -154,7 +154,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     }
                     else if (nome == "Eventos") {
                         eraseMarkers();
-                        serviceSearch("event");
+                        serviceSearch("evento");
                     } else if (nome == "Oficina") {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_repair");
