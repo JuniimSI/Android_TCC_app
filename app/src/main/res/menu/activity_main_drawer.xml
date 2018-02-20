@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="">
+        <menu android:title="single">
+            <item
+                android:id="@+id/nav_instrucoes"
+                android:icon="@drawable/ic_instrucoes"
+                android:title="Instruções" />
+            <item
+                android:id="@+id/nav_mapa"
+                android:icon="@drawable/ic_mapa"
+                android:title="Mapa"/>
+
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ic_login"
+                android:title="Login" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_login"
+                android:title="Logout" />
+
+            <item android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_sair"
+                android:title="Sair"/>
+        </menu>
+    </item>
+
+</menu>

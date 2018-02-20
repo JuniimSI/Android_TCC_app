@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.example.juniorf.tcc.LOGIN.LogInActivity">
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="551dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ImageView
+            android:id="@+id/imagem"
+            android:layout_width="253dp"
+            android:layout_height="182dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/google" />
+
+        <TextView
+            android:id="@+id/texto"
+            style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mantenha tudo integrado e faça o login pelo Google para obter todas as funcionalidades"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/siginButton"
+            android:layout_width="200dp"
+            android:text="Entre com o google"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:persistentDrawingCache="animation">
+
+        </com.google.android.gms.common.SignInButton>
+
+    </LinearLayout>
+
+</RelativeLayout>
