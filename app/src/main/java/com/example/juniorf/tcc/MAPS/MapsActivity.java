@@ -51,6 +51,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.juniorf.tcc.CONFIG.AppController;
 import com.example.juniorf.tcc.CONSTANTS.Functions;
+import com.example.juniorf.tcc.CONSTANTS.OnInfoWindowElemTouchListener;
 import com.example.juniorf.tcc.DAO.MyLocationDAO;
 import com.example.juniorf.tcc.DetalhesActivity;
 import com.example.juniorf.tcc.MODEL.MyLocation;
@@ -96,6 +97,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private List<LatLng> rotas;
     private Polyline polyline;
 
+
+    private ViewGroup infoWindow;
+    private Button infoButton1;
+    private Button infoButton2;
+    private OnInfoWindowElemTouchListener infoButtonListener;
+
     ////////Emails
     public String email;
     public String emailDestinos = "";
@@ -117,6 +124,39 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+
+        ////
+        infoWindow = (ViewGroup)getLayoutInflater()
+                .inflate(R.layout.info_window, null);
+        infoButton1 = (Button)infoWindow.findViewById(R.id.detalheBtn);
+        infoButton2 = (Button)infoWindow.findViewById(R.id.geraRotaBtn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Tutorial help button
         helpButton = (ImageButton) findViewById(R.id.help);
@@ -509,7 +549,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         }
         if (mMap != null) {
 
-          //  mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            //  mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             //      @Override
             //  public void onInfoWindowClick(Marker marker) {
             //      geraRota(displayLocation(), marker.getPosition());
@@ -542,7 +582,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
                     return view;
-                    
+
+
                 }
 
                 @Override

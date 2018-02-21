@@ -5,19 +5,21 @@
     style="@style/Base.CardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:weightSum="2">
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="162dp"
+        android:layout_width="108dp"
+        android:layout_height="169dp"
+        android:layout_weight="0.1"
         app:srcCompat="@drawable/bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
 
@@ -45,7 +47,7 @@
 
         <Button
             android:id="@+id/detalheBtn"
-            style="@style/AlertDialog.AppCompat.Light"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +57,7 @@
 
         <Button
             android:id="@+id/geraRotaBtn"
-            style="@style/AlertDialog.AppCompat.Light"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
