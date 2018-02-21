@@ -98,11 +98,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private Polyline polyline;
 
 
-    private ViewGroup infoWindow;
-    private Button infoButton1;
-    private Button infoButton2;
-    private OnInfoWindowElemTouchListener infoButtonListener;
-
     ////////Emails
     public String email;
     public String emailDestinos = "";
@@ -112,6 +107,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     public Spinner types;
     public String typeToken;
     public ImageButton helpButton;
+    public String tipoz = "";
+
 
     ////////URL
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
@@ -124,39 +121,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-
-
-        ////
-        infoWindow = (ViewGroup)getLayoutInflater()
-                .inflate(R.layout.info_window, null);
-        infoButton1 = (Button)infoWindow.findViewById(R.id.detalheBtn);
-        infoButton2 = (Button)infoWindow.findViewById(R.id.geraRotaBtn);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Tutorial help button
         helpButton = (ImageButton) findViewById(R.id.help);
@@ -272,10 +236,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     public void drawMarkers(String type){
         if(type.equals("restaurant")){
+
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
             }
+            tipoz="restaurante";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -287,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "banco";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -299,7 +265,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "bar";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -311,7 +277,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "lavajato";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -323,7 +289,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "museus";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -335,7 +301,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "posto_gasolina";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -347,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "oficina";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -359,7 +325,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "troca";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -372,7 +338,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "eventos";
 
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
@@ -385,7 +351,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "venda";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -397,7 +363,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            } tipoz = "hospital_posto";
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -549,46 +515,44 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         }
         if (mMap != null) {
 
-            //  mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            //      @Override
-            //  public void onInfoWindowClick(Marker marker) {
-            //      geraRota(displayLocation(), marker.getPosition());
-            //  }
-            //});
+              mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                  @Override
+                  public void onInfoWindowClick(Marker marker) {
+                      geraRota(displayLocation(), marker.getPosition());
+                  }
+              });
+
+              mMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+                  @Override
+                  public void onInfoWindowLongClick(Marker marker) {
+                      detailsFind(marker);
+                  }
+              });
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(final Marker marker) {
-
-                    View view = getLayoutInflater().inflate(R.layout.info_window, null);
-                    TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
-                    TextView txLat = (TextView) view.findViewById(R.id.tvLat);
-                    TextView txLng = (TextView) view.findViewById(R.id.tvLng);
-                    TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
-                    Button geraRotaz = (Button) view.findViewById(R.id.geraRotaBtn);
-                    geraRotaz.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            geraRota(displayLocation(), marker.getPosition());
-                        }
-                    });
-                    Button details = (Button) view.findViewById(R.id.detalheBtn);
-
-                    LatLng ll = marker.getPosition();
-                    txLocality.setText(marker.getTitle());
-                    txLat.setText("Latitude : " + ll.latitude);
-                    txLng.setText("Longitude : " + ll.longitude);
-                    txSnippet.setText(marker.getSnippet());
-
-
-                    return view;
-
-
+                   return null;
                 }
 
                 @Override
                 public View getInfoContents(final Marker marker) {
-                    return null;
+                    View view = getLayoutInflater().inflate(R.layout.info_window, null);
+                    TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
+                   // TextView txLat = (TextView) view.findViewById(R.id.tvLat);
+                    //TextView txLng = (TextView) view.findViewById(R.id.tvLng);
+                    //TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
+                    ImageView imageInfoWindow = (ImageView) view.findViewById(R.id.imageInfoWindow);
+                    Toast.makeText(MapsActivity.this, ""+tipoz, Toast.LENGTH_SHORT).show();
+                    imageInfoWindow.setImageResource(getResources().getIdentifier(
+                            tipoz, "drawable", getPackageName()));
+                    LatLng ll = marker.getPosition();
+                    txLocality.setText(marker.getTitle());
+                    //txLat.setText("Latitude : " + ll.latitude);
+                    //txLng.setText("Longitude : " + ll.longitude);
+                    //txSnippet.setText(marker.getSnippet());
+                    return view;
                 }
             });
         }
@@ -861,7 +825,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
-                            "Error: " + e.getMessage(),
+                            "Impossivel chegar ao Destino." ,
                             Toast.LENGTH_LONG).show();
                 }
                 hideProgressRota();
