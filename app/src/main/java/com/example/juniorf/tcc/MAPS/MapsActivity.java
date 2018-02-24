@@ -668,8 +668,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 if(rotas!=null){
                     rotas=new ArrayList<LatLng>();
                 }
-
-
             }
         });
 

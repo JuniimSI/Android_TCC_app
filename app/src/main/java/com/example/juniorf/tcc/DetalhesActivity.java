@@ -271,12 +271,9 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         emailDestino = bundle.getString("emailDestino");
-        Toast.makeText(DetalhesActivity.this, "emailDestino!"+emailDestino, Toast.LENGTH_SHORT).show();
         emailOrigem = bundle.getString("emailOrigem");
-        Toast.makeText(DetalhesActivity.this, "emailOrigem!"+emailOrigem, Toast.LENGTH_SHORT).show();
         typeToken = bundle.getString("typeToken");
         tipoToken = bundle.getString("tipoToken");
-        Toast.makeText(DetalhesActivity.this, "!" + tipoToken, Toast.LENGTH_SHORT).show();
         placeId = bundle.getString("place_id");
         lat = bundle.getString("lat");
         lng = bundle.getString("lng");
