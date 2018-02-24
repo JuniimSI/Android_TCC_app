@@ -276,6 +276,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         Toast.makeText(DetalhesActivity.this, "emailOrigem!"+emailOrigem, Toast.LENGTH_SHORT).show();
         typeToken = bundle.getString("typeToken");
         tipoToken = bundle.getString("tipoToken");
+        Toast.makeText(DetalhesActivity.this, "!" + tipoToken, Toast.LENGTH_SHORT).show();
         placeId = bundle.getString("place_id");
         lat = bundle.getString("lat");
         lng = bundle.getString("lng");
@@ -471,6 +472,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         bundle.putString("lat", lat);
         bundle.putString("lng", lng);
         bundle.putString("typeToken", typeToken);
+        bundle.putString("tipoToken", tipoToken);
         bundle.putString("place_id", placeId);
         bundle.putString("local", localToken);
         i.putExtras(bundle);

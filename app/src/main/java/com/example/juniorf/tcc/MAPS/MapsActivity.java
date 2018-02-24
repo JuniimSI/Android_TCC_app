@@ -470,6 +470,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                                     bundle.putString("lat", String.valueOf(marker.getPosition().latitude));
                                                     bundle.putString("lng", String.valueOf(marker.getPosition().longitude));
                                                     bundle.putString("typeToken", typeToken);
+                                                    bundle.putString("tipoToken", tipoz);
                                                     bundle.putString("place_id", marker.getSnippet());
                                                     bundle.putString("local", marker.getTitle());
                                                     is.putExtras(bundle);
