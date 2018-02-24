@@ -439,6 +439,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         bundle.putString("lat", String.valueOf(marker.getPosition().latitude));
                         bundle.putString("lng", String.valueOf(marker.getPosition().longitude));
                         bundle.putString("typeToken", typeToken);
+                        bundle.putString("tipoToken", tipoz);
                         bundle.putString("place_id", marker.getSnippet());
                         bundle.putString("local", marker.getTitle());
                         is.putExtras(bundle);
@@ -540,7 +541,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 public View getInfoContents(final Marker marker) {
                     View view = getLayoutInflater().inflate(R.layout.info_window, null);
                     TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
-                   // TextView txLat = (TextView) view.findViewById(R.id.tvLat);
+                    // TextView txLat = (TextView) view.findViewById(R.id.tvLat);
                     //TextView txLng = (TextView) view.findViewById(R.id.tvLng);
                     //TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
                     ImageView imageInfoWindow = (ImageView) view.findViewById(R.id.imageInfoWindow);
@@ -657,6 +658,19 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
         //______________________________________________________________________________//
 
+
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
+            @Override
+            public void onMapClick(LatLng latLng){
+
+                if(rotas!=null){
+                    rotas=new ArrayList<LatLng>();
+                }
+
+
+            }
+        });
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -800,6 +814,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     public void getRoute(final LatLng origin, final LatLng destination) {
         showProgressRota();
+
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + origin.latitude + "," +
                 origin.longitude + "&destination=" + destination.latitude + "," + destination.longitude + "&key="+"AIzaSyAVXsswDxxILvxxPAeTrtMHrQ0m_pYWOpQ";
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
@@ -810,7 +825,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     JSONObject result = new JSONObject(response.toString());
                     JSONArray routes = result.getJSONArray("routes");
 
-                    // distance = routes.getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("distance").getInt("value");
                     JSONArray steps = routes.getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONArray("steps");
                     rotas = new ArrayList<LatLng>();
 

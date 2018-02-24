@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     private TextView nomeText;
     private TextView telefoneText;
     private TextView ratingText;
+    private ImageView perfilType;
     private EditText message;
     private ExpandableListView listView;
     private Button btnSend;
@@ -75,6 +77,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
     private String emailDestino;
     private String emailOrigem;
+    private String tipoToken;
     private String typeToken;
     private String lat;
     private String localToken;
@@ -272,6 +275,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         emailOrigem = bundle.getString("emailOrigem");
         Toast.makeText(DetalhesActivity.this, "emailOrigem!"+emailOrigem, Toast.LENGTH_SHORT).show();
         typeToken = bundle.getString("typeToken");
+        tipoToken = bundle.getString("tipoToken");
         placeId = bundle.getString("place_id");
         lat = bundle.getString("lat");
         lng = bundle.getString("lng");
@@ -283,6 +287,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         nomeText = (TextView) findViewById(R.id.nomeText);
         telefoneText = (TextView) findViewById(R.id.telefoneText);
         ratingText = (TextView) findViewById(R.id.ratingText);
+        perfilType = (ImageView) findViewById(R.id.perfilType);
+        perfilType.setImageResource(getResources().getIdentifier(
+                tipoToken, "drawable", getPackageName()));
+
 
         registerForContextMenu(listView);
 
