@@ -24,7 +24,7 @@
             android:background="@drawable/gradient_color"
             android:foregroundGravity="center"
             android:gravity="center_vertical"
-            android:minHeight="80dp"
+            android:minHeight="110dp"
             android:orientation="horizontal"
             android:paddingBottom="5dp">
 
@@ -39,14 +39,17 @@
                 android:id="@+id/cabecalho"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:foregroundGravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingLeft="10dp">
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
 
                 <TextView
                     android:id="@+id/nomeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/branco"
                     android:textSize="17sp" />
 
                 <TextView
@@ -54,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aguarde enquanto carrega os detalhes"
+                    android:textColor="@color/branco"
                     android:textSize="17sp" />
 
                 <TextView
@@ -61,6 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/branco"
                     android:textSize="17sp" />
             </LinearLayout>
         </LinearLayout>
@@ -68,15 +73,13 @@
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.15"
                 android:orientation="horizontal"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
