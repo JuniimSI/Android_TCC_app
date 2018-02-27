@@ -112,30 +112,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         super.onStart();
     }
 
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-      ImageView bmImage;
-
-      public DownloadImageTask(ImageView mImage) {
-          this.bmImage = mImage;
-      }
-
-      protected Bitmap doInBackground(String... urls) {
-          String url = urls[0];
-          Bitmap mBitmap = null;
-          try {
-              InputStream in = new java.net.URL(url).openStream();
-              mBitmap = BitmapFactory.decodeStream(in);
-          } catch (Exception e) {
-              Log.e("Error", e.getMessage());
-              e.printStackTrace();
-          }
-          return mBitmap;
-      }
-
-      protected void onPostExecute(Bitmap result) {
-          bmImage.setImageBitmap(result);
-      }
-    }
 
     public List<Mensagem> show(final Mensagem mensagem, final Context c){
         showProgressMessages();
@@ -268,31 +244,31 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         
 
         ///////////////////Progress////////////////////////
-        progressDetails = new ProgressDialog(this);
+        progressDetails = new ProgressDialog(getApplicationContext());
         progressDetails.setMessage("Recebendo os detalhes...");
         progressDetails.setCancelable(true);
 
-        progressInsert = new ProgressDialog(this);
+        progressInsert = new ProgressDialog(getApplicationContext());
         progressInsert.setMessage("Inserindo mensagem...");
         progressInsert.setCancelable(true);
 
-        progressDeleteMarker = new ProgressDialog(this);
+        progressDeleteMarker = new ProgressDialog(getApplicationContext());
         progressDeleteMarker.setMessage("Deletando marker");
         progressDeleteMarker.setCancelable(true);
 
-        progressUpdate = new ProgressDialog(this);
+        progressUpdate = new ProgressDialog(getApplicationContext());
         progressUpdate.setMessage("Atualizando mensagem...");
         progressUpdate.setCancelable(true);
 
-        progressDelete = new ProgressDialog(this);
+        progressDelete = new ProgressDialog(getApplicationContext());
         progressDelete.setMessage("Apagando mensagem...");
         progressDelete.setCancelable(true);
 
-        progressAnswer = new ProgressDialog(this);
+        progressAnswer = new ProgressDialog(getApplicationContext());
         progressAnswer.setMessage("Carregando respostas...");
         progressAnswer.setCancelable(true);
 
-        progressMessages = new ProgressDialog(this);
+        progressMessages = new ProgressDialog(getApplicationContext());
         progressMessages.setMessage("Carregando mensagens...");
         progressMessages.setCancelable(true);
 
@@ -564,7 +540,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
     public MyLocation findLocationById(final int id){
         progressDetails.show();
-        //Toast.makeText(this, "id+"+id, Toast.LENGTH_SHORT).show();
         final MyLocation[] myLocation = new MyLocation[1];
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonDetailsLocation, new Response.Listener<String>() {
