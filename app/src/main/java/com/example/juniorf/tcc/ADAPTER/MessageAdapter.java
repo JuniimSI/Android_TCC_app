@@ -99,7 +99,7 @@ public class MessageAdapter extends BaseExpandableListAdapter {
         //populando as Views
         email.setText( getGroup(groupPosition).getEmailOrigem());
         message.setText( getGroup(groupPosition).getTexto());
-        imagem.setImageResource(R.drawable.cast_ic_notification_connecting);
+        imagem.setImageResource(R.mipmap.ic_user);
 
         return convertView;
 
@@ -127,7 +127,7 @@ public class MessageAdapter extends BaseExpandableListAdapter {
         //populando as Views
         email.setText( getChild(groupPosition, childPosition).getEmailOrigem());
         message.setText( getChild(groupPosition, childPosition).getTexto());
-        imagem.setImageResource(R.drawable.cast_ic_notification_connecting);
+        imagem.setImageResource(R.mipmap.ic_user);
 
         return convertView;
     }

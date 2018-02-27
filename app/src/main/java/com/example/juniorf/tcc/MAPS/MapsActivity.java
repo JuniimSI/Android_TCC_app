@@ -374,6 +374,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         }
     }
 
+    
+
+
     @Override
     public boolean isOnline(Context c) {
             ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

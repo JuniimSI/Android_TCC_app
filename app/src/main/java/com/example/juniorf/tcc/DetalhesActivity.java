@@ -4,12 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,6 +56,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +110,31 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+      ImageView bmImage;
+
+      public DownloadImageTask(ImageView mImage) {
+          this.bmImage = mImage;
+      }
+
+      protected Bitmap doInBackground(String... urls) {
+          String url = urls[0];
+          Bitmap mBitmap = null;
+          try {
+              InputStream in = new java.net.URL(url).openStream();
+              mBitmap = BitmapFactory.decodeStream(in);
+          } catch (Exception e) {
+              Log.e("Error", e.getMessage());
+              e.printStackTrace();
+          }
+          return mBitmap;
+      }
+
+      protected void onPostExecute(Bitmap result) {
+          bmImage.setImageBitmap(result);
+      }
     }
 
     public List<Mensagem> show(final Mensagem mensagem, final Context c){
@@ -228,7 +258,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
         respostas = new HashMap<Mensagem, List<Mensagem>>();
-
 
 
         /////////////////Toolbar///////////////////////////
