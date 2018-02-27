@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity
             if(account.getDisplayName()!=null)
                 Toast.makeText(this, "Hello, "+account.getDisplayName(), Toast.LENGTH_SHORT).show();
             email = (account.getEmail());
+            
         }else{
         }
     }

@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
 
 
-    String[] Languages = { "Search por Tipo", "Restaurante", "Banco", "Bar","Eventos","Oficina", "Hospital/Postos", "Posto de Gasolina","Troca", "Venda", "Museus","LavaJato" };
+    String[] Languages = { "Tipos", "Restaurante", "Banco", "Bar","Eventos","Oficina", "Hospital/Postos", "Posto de Gasolina","Troca", "Venda", "Museus","LavaJato" };
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
 
     @Override
@@ -481,7 +481,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                             }
                                         }catch (JSONException e) {
                                             Toast.makeText(getApplicationContext(), "k"+response, Toast.LENGTH_SHORT).show();
-                                            Log.d("No", response);
                                             e.printStackTrace();
                                         }
                                     }
@@ -542,18 +541,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 public View getInfoContents(final Marker marker) {
                     View view = getLayoutInflater().inflate(R.layout.info_window, null);
                     TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
-                    // TextView txLat = (TextView) view.findViewById(R.id.tvLat);
-                    //TextView txLng = (TextView) view.findViewById(R.id.tvLng);
-                    //TextView txSnippet = (TextView) view.findViewById(R.id.tvSnippet);
                     ImageView imageInfoWindow = (ImageView) view.findViewById(R.id.imageInfoWindow);
-                    Toast.makeText(MapsActivity.this, ""+tipoz, Toast.LENGTH_SHORT).show();
                     imageInfoWindow.setImageResource(getResources().getIdentifier(
                             tipoz, "drawable", getPackageName()));
                     LatLng ll = marker.getPosition();
                     txLocality.setText(marker.getTitle());
-                    //txLat.setText("Latitude : " + ll.latitude);
-                    //txLng.setText("Longitude : " + ll.longitude);
-                    //txSnippet.setText(marker.getSnippet());
+                    
                     return view;
                 }
             });
@@ -597,7 +590,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 }
                             }catch (JSONException e) {
                                 Toast.makeText(getApplicationContext(), "k"+response, Toast.LENGTH_SHORT).show();
-                                Log.d("No", response);
                                 e.printStackTrace();
                             }
                         }
@@ -629,7 +621,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onMarkerDragEnd(Marker marker) {
                 if(email!=null) {
-                    Log.i("COMP",  email +"-"+emailDestinos);
                     if (email.equals(emailDestinos)) {
                         Geocoder gc = new Geocoder(MapsActivity.this);
                         LatLng ll = marker.getPosition();
@@ -693,6 +684,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             type[0] = parent.getItemAtPosition(position).toString();
                             if (position == 0)
                                 Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
+                            else if(type[0] == "Tipos")
+                                Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
                             else if (type[0] == "Restaurante") {
                                 type[0] = ("restaurant");
                                 return;
@@ -748,6 +741,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setLng(latLng.longitude);
                             location.setNome(n[0]);
                             location.setTelefone(n[1]);
+                            if(type[0].equals("Tipos")){
+                                Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             location.setTipo(type[0]);
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());
