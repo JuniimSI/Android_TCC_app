@@ -538,8 +538,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 MessageDAO messageDAO = new MessageDAO(getApplicationContext());
                 messageDAO.findOrigemByDestinoAndMessageAndLocal(mensagemSelecionada.getEmailDestino(),mensagemSelecionada.getTexto(),
                         mensagemSelecionada.getLocal(), getApplicationContext());
+                lista.remove(mensagemSelecionada);
                 mensagemSelecionada = null;
-                updateActivity();
+
+                finish();
             }
         });
         builder.setNegativeButton("Não", null);

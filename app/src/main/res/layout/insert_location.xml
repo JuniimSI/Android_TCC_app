@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/telefone"
-        android:inputType="textPersonName"
+        android:inputType="numberPassword"
         android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
     <Spinner

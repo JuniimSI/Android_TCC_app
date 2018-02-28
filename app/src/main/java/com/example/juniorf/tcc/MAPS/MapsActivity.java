@@ -679,6 +679,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                     final EditText nome = (EditText) pront.findViewById(R.id.nomeEditText);
                     final EditText telefone = (EditText) pront.findViewById(R.id.telefoneEditText);
+                    telefone.setTransformationMethod(null);
                     final Spinner tipo = (Spinner) pront.findViewById(R.id.spinner);
                     final String[] type = {""};
                     tipo.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
