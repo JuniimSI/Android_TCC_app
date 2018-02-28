@@ -331,12 +331,8 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     String text = message.getText().toString();
                     n.setTexto(text);
                     n.setEmailOrigem(emailOrigem);
-                    Log.d("Tag do referenceId", referenceId);
-                    Log.d("Tag do placeId", placeId);
-                    if(!existArroba(placeId)) {
-                        Log.d("Tag do referenceId", referenceId);
+                    if(!existArroba(placeId))
                         n.setEmailDestino(referenceId);
-                    }
                     else
                         n.setEmailDestino(emailDestino);
                     n.setLocal(localToken);
@@ -378,16 +374,13 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detalhes, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        
         int id = item.getItemId();
 
         if (id == R.id.action_delete) {
@@ -415,7 +408,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                            });
                     builder.setNegativeButton("Não", null);
 
-                // 3. Get the AlertDialog from create()
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     
