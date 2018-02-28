@@ -88,6 +88,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     private String localToken;
     private String lng;
     private String placeId;
+    private String referenceId;
 
     private MessageAdapter adapter;
     private List<Mensagem> lista;
@@ -244,31 +245,31 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         
 
         ///////////////////Progress////////////////////////
-        progressDetails = new ProgressDialog(getApplicationContext());
+        progressDetails = new ProgressDialog(this);
         progressDetails.setMessage("Recebendo os detalhes...");
         progressDetails.setCancelable(true);
 
-        progressInsert = new ProgressDialog(getApplicationContext());
+        progressInsert = new ProgressDialog(this);
         progressInsert.setMessage("Inserindo mensagem...");
         progressInsert.setCancelable(true);
 
-        progressDeleteMarker = new ProgressDialog(getApplicationContext());
+        progressDeleteMarker = new ProgressDialog(this);
         progressDeleteMarker.setMessage("Deletando marker");
         progressDeleteMarker.setCancelable(true);
 
-        progressUpdate = new ProgressDialog(getApplicationContext());
+        progressUpdate = new ProgressDialog(this);
         progressUpdate.setMessage("Atualizando mensagem...");
         progressUpdate.setCancelable(true);
 
-        progressDelete = new ProgressDialog(getApplicationContext());
+        progressDelete = new ProgressDialog(this);
         progressDelete.setMessage("Apagando mensagem...");
         progressDelete.setCancelable(true);
 
-        progressAnswer = new ProgressDialog(getApplicationContext());
+        progressAnswer = new ProgressDialog(this);
         progressAnswer.setMessage("Carregando respostas...");
         progressAnswer.setCancelable(true);
 
-        progressMessages = new ProgressDialog(getApplicationContext());
+        progressMessages = new ProgressDialog(this);
         progressMessages.setMessage("Carregando mensagens...");
         progressMessages.setCancelable(true);
 
@@ -280,6 +281,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         typeToken = bundle.getString("typeToken");
         tipoToken = bundle.getString("tipoToken");
         placeId = bundle.getString("place_id");
+        referenceId = bundle.getString("id_reference");
         lat = bundle.getString("lat");
         lng = bundle.getString("lng");
         localToken = bundle.getString("local");
@@ -326,7 +328,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     String text = message.getText().toString();
                     n.setTexto(text);
                     n.setEmailOrigem(emailOrigem);
-                    n.setEmailDestino(emailDestino);
+                    if(existArroba(placeId))
+                        n.setEmailDestino(referenceId);
+                    else
+                        n.setEmailDestino(emailDestino);
                     n.setLocal(localToken);
                     MessageDAO messageDAO = new MessageDAO(getApplicationContext());
                     messageDAO.insert(n, getApplicationContext());
@@ -539,7 +544,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public MyLocation findLocationById(final int id){
-        progressDetails.show();
         final MyLocation[] myLocation = new MyLocation[1];
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonDetailsLocation, new Response.Listener<String>() {
@@ -568,7 +572,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     nomeText.setText("Nome: "+myLocation[0].getNome());
                     telefoneText.setText("Telefone: "+myLocation[0].getTelefone());
                     ratingText.setText("Tipo: "+myLocation[0].getTipo());
-                    progressDetails.dismiss();
+
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -587,7 +591,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 return parameters;
             }
         };
-        progressDetails.dismiss();
         int socketTimeout = 30000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
@@ -726,7 +729,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     private MyLocation detailsSearch(String placeId){
-        progressDetails.show();
         final MyLocation ml = new MyLocation();
         Places.GeoDataApi.getPlaceById(apiClient, placeId)
                 .setResultCallback(new ResultCallback<PlaceBuffer>() {
@@ -747,7 +749,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         places.release();
                     }
                 });
-        progressDetails.dismiss();
         return ml;
     }
     private void showProgressAnswer() {

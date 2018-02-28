@@ -444,6 +444,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         bundle.putString("typeToken", typeToken);
                         bundle.putString("tipoToken", tipoz);
                         bundle.putString("place_id", marker.getSnippet());
+                        bundle.putString("id_reference", marker.getSnippet());
                         bundle.putString("local", marker.getTitle());
                         is.putExtras(bundle);
                         startActivity(is);

@@ -89,6 +89,9 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         request.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(request);
     }
+
+    
+
     public void insert(final Mensagem location, final Context t) {
             //  showpDialog();
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);

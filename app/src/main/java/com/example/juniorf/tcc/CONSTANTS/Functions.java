@@ -10,4 +10,6 @@ import android.net.ConnectivityManager;
 public interface Functions {
 
     public boolean isOnline(Context c);
+
+    
 }
