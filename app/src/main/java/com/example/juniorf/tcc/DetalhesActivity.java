@@ -451,7 +451,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             public void onClick(DialogInterface dialog, int id) {
                 n[0] = nome.getText().toString();
                 MessageDAO mDAO = new MessageDAO(getApplicationContext());
-                mDAO.insertAnswer(mensagemSelecionada.getId(), emailDestino, emailOrigem, n[0], getApplicationContext());
+                if(existArroba(placeId))
+                    mDAO.insertAnswer(mensagemSelecionada.getId(), referenceId, emailOrigem, n[0], getApplicationContext());
+                else
+                    mDAO.insertAnswer(mensagemSelecionada.getId(), emailDestino, emailOrigem, n[0], getApplicationContext());
 
                 Toast.makeText(DetalhesActivity.this, "Resposta inserida com sucesso!", Toast.LENGTH_SHORT).show();
                 updateActivity();
@@ -482,6 +485,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         bundle.putString("tipoToken", tipoToken);
         bundle.putString("place_id", placeId);
         bundle.putString("local", localToken);
+        bundle.putString("id_reference", referenceId);
         i.putExtras(bundle);
         startActivity(i);
         finish();
