@@ -159,7 +159,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String , String>();
-                parameters.put("emailDestino", mensagem.getEmailDestino());
+                if(!existArroba(placeId))
+                    parameters.put("emailDestino", referenceId);
+                else
+                    parameters.put("emailDestino", mensagem.getEmailDestino());
                 parameters.put("local", mensagem.getLocal());
                 return parameters;
             }
@@ -328,8 +331,12 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     String text = message.getText().toString();
                     n.setTexto(text);
                     n.setEmailOrigem(emailOrigem);
-                    if(existArroba(placeId))
+                    Log.d("Tag do referenceId", referenceId);
+                    Log.d("Tag do placeId", placeId);
+                    if(!existArroba(placeId)) {
+                        Log.d("Tag do referenceId", referenceId);
                         n.setEmailDestino(referenceId);
+                    }
                     else
                         n.setEmailDestino(emailDestino);
                     n.setLocal(localToken);
@@ -451,7 +458,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             public void onClick(DialogInterface dialog, int id) {
                 n[0] = nome.getText().toString();
                 MessageDAO mDAO = new MessageDAO(getApplicationContext());
-                if(existArroba(placeId))
+                if(!existArroba(placeId))
                     mDAO.insertAnswer(mensagemSelecionada.getId(), referenceId, emailOrigem, n[0], getApplicationContext());
                 else
                     mDAO.insertAnswer(mensagemSelecionada.getId(), emailDestino, emailOrigem, n[0], getApplicationContext());
@@ -662,7 +669,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             public void onClick(DialogInterface dialog, int id) {
                 n[0] = nome.getText().toString();
                 MessageDAO mDAO = new MessageDAO(getApplicationContext());
-                mDAO.insertAnswer(idMensagemSelecionada, emailDestino, emailOrigem, n[0], getApplicationContext());
+                if(!existArroba(placeId))
+                    mDAO.insertAnswer(idMensagemSelecionada, referenceId, emailOrigem, n[0], getApplicationContext());
+                else    
+                    mDAO.insertAnswer(idMensagemSelecionada, emailDestino, emailOrigem, n[0], getApplicationContext());
                 updateActivity();
                 Toast.makeText(DetalhesActivity.this, "Resposta inserida com sucesso!", Toast.LENGTH_SHORT).show();
             }
@@ -805,7 +815,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public boolean existArroba(String frase){
-        if (frase == null || ! frase.matches("^[0-9]{1,8}$"))
+        if (frase == null || !frase.matches("^[0-9]{1,8}$"))
             return false;
         return true;
     }

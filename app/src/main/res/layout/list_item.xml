@@ -15,7 +15,7 @@
             android:id="@+id/ivPerfil"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:civ_border_color="#FF000000"
+            app:civ_border_color="@color/branco"
             app:civ_border_width="2dp"
             app:srcCompat="@mipmap/ic_user" />
     </RelativeLayout>
@@ -31,13 +31,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/branco" />
 
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Message" />
+            android:text="Message"
+            android:textColor="@color/branco" />
     </LinearLayout>
 
 </LinearLayout>

@@ -9,6 +9,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/textUpdateMessage"
-        android:hint="@string/nome" />
+        android:hint="@string/nome"
+        android:textColorLink="@color/blue" />
 
 </LinearLayout>
