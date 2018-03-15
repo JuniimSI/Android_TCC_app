@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,7 +69,8 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     private TextView nomeText;
     private TextView telefoneText;
     private TextView ratingText;
-    private ImageView perfilType;
+    private FloatingActionButton floatingActionButton;
+   // private ImageView perfilType;
     private EditText message;
     private ExpandableListView listView;
     private Button btnSend;
@@ -101,6 +103,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
     private GoogleApiClient apiClient;
     private String urlJsonDetailsLocation = "http://grainmapey.pe.hu/GranMapey/details_location.php";
+    private String urlJsonDetailsIdLocation = "http://grainmapey.pe.hu/GranMapey/find_details_by_id_location.php";
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -233,6 +236,53 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         hideProgressAnswer();
     }
 
+    public void requestDetailsGoogle(){
+        Toast.makeText(this, "google", Toast.LENGTH_SHORT).show();
+    }
+
+    public String requestDetailsWebService(){
+        final String[] detalhes = new String[1];
+        RequestQueue mRequestQueue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+placeId, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (response.startsWith("ï»¿")) { response = response.substring(3); }
+                    JSONArray jsonArray = new JSONArray(response);
+                    detalhes[0] = new String();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject person = (JSONObject) jsonArray.get(i);
+                        detalhes[0] = person.getString("detalhes");
+                        Toast.makeText(DetalhesActivity.this, "kkkk ta certo?"+detalhes[0], Toast.LENGTH_SHORT).show();
+
+                    }
+                }catch (JSONException e) {
+                    Toast.makeText(DetalhesActivity.this, "k"+response, Toast.LENGTH_SHORT).show();
+                    Log.d("No", response);
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("TAG", "Error: " + error.getMessage());
+            }
+        })
+        {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String , String>();
+                parameters.put("id", (placeId));
+                return parameters;
+            }
+        };
+        int socketTimeout = 30000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
+        AppController.getInstance().addToRequestQueue(request);
+
+        return detalhes[0];
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,7 +295,22 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.detailsFloating);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(placeId!=null) {
+                    if(!existArroba(placeId)) {
+                        requestDetailsGoogle();
+                    } else {
+                        requestDetailsWebService();
+                    }
+                }else{
+                    Toast.makeText(DetalhesActivity.this, "Aguarde carregar as informações necessárias", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         ///////////////////Progress////////////////////////
         progressDetails = new ProgressDialog(this);
@@ -295,9 +360,9 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         nomeText = (TextView) findViewById(R.id.nomeText);
         telefoneText = (TextView) findViewById(R.id.telefoneText);
         ratingText = (TextView) findViewById(R.id.ratingText);
-        perfilType = (ImageView) findViewById(R.id.perfilType);
-        perfilType.setImageResource(getResources().getIdentifier(
-                tipoToken, "drawable", getPackageName()));
+//        perfilType = (ImageView) findViewById(R.id.perfilType);
+//        perfilType.setImageResource(getResources().getIdentifier(
+//                tipoToken, "drawable", getPackageName()));
 
 
         registerForContextMenu(listView);
@@ -574,8 +639,9 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         myLocation[0].setLat(Double.parseDouble(lat));
                         myLocation[0].setLng(Double.parseDouble(lng));
                     }
-                    nomeText.setText("Nome: "+myLocation[0].getNome());
+                    nomeText.setText(""+myLocation[0].getNome());
                     telefoneText.setText("Telefone: "+myLocation[0].getTelefone());
+                    Toast.makeText(DetalhesActivity.this, myLocation[0].getTipo(), Toast.LENGTH_SHORT).show();
                     ratingText.setText("Tipo: "+myLocation[0].getTipo());
 
                 }
@@ -748,7 +814,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                             ml.setTelefone(String.valueOf(myPlace.getPhoneNumber()));
                             ml.setEmail(String.valueOf(myPlace.getAttributions()));
                             ml.setTipo(String.valueOf(myPlace.getRating()));
-                            nomeText.setText("Nome: "+ml.getNome());
+                            nomeText.setText(""+ml.getNome());
                             telefoneText.setText("Telefone: "+ml.getTelefone());
                             ratingText.setText("Nota: "+ml.getTipo());
                         } else {

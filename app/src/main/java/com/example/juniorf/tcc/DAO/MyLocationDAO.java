@@ -218,6 +218,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                 parameters.put("tipo", String.valueOf(location.getTipo()));
                 parameters.put("telefone", location.getTelefone());
                 parameters.put("email", location.getEmail());
+                parameters.put("detalhes", location.getDetalhes());
               //  hidepDialog();
                 return parameters;
             }

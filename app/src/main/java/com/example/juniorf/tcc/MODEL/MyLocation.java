@@ -14,7 +14,16 @@ public class MyLocation {
     private double lng;
     private String tipo;
     private String email;
-    private  String id_reference;
+    private String id_reference;
+    private String detalhes;
+
+    public String getDetalhes(){
+        return detalhes;
+    }
+
+    public void setDetalhes(String detalhes){
+        this.detalhes = detalhes;
+    }
 
     public String getId_reference() {
         return id_reference;

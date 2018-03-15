@@ -670,7 +670,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onMapLongClick(final LatLng latLng) {
                 if (email != null && verificaGPS() == true) {
-                    final String[] n = {"", ""};
+                    final String[] n = {"", "", ""};
 
                     LayoutInflater layoutInflater = LayoutInflater.from(MapsActivity.this);
                     View pront = layoutInflater.inflate(R.layout.insert_location, null);
@@ -679,6 +679,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                     final EditText nome = (EditText) pront.findViewById(R.id.nomeEditText);
                     final EditText telefone = (EditText) pront.findViewById(R.id.telefoneEditText);
+                    final EditText detalhes = (EditText) pront.findViewById(R.id.detalhesEditText);
                     telefone.setTransformationMethod(null);
                     final Spinner tipo = (Spinner) pront.findViewById(R.id.spinner);
                     final String[] type = {""};
@@ -739,6 +740,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         public void onClick(DialogInterface dialog, int id) {
                             n[0] = nome.getText().toString();
                             n[1] = telefone.getText().toString();
+                            n[2] = detalhes.getText().toString();
 
                             MyLocation location = new MyLocation();
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
@@ -746,10 +748,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setLng(latLng.longitude);
                             location.setNome(n[0]);
                             location.setTelefone(n[1]);
+                            location.setDetalhes(n[2]);
                             if(type[0].equals("Tipos")){
                                 Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
                                 return;
                             }
+                            type[0] = type[0].replace("\n", "").replace("\t", "").replace(" ","");
+                            Toast.makeText(MapsActivity.this, type[0], Toast.LENGTH_SHORT).show();
                             location.setTipo(type[0]);
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());

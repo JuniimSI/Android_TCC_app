@@ -28,60 +28,60 @@
             android:orientation="horizontal"
             android:paddingBottom="5dp">
 
-            <ImageView
-                android:id="@+id/perfilType"
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/detailsFloating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
                 android:minWidth="10dp"
-                android:paddingLeft="6dp" />
+                android:paddingLeft="6dp"
+                app:backgroundTint="@color/blue"
+                app:srcCompat="@android:drawable/ic_menu_view" />
 
             <LinearLayout
-                android:id="@+id/cabecalho"
+                android:id="@+id/botaoecabecalho"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:foregroundGravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp">
+                android:orientation="horizontal"
 
-                <TextView
-                    android:id="@+id/nomeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/branco"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/telefoneText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aguarde enquanto carrega os detalhes"
-                    android:textColor="@color/branco"
-                    android:textSize="17sp" />
+                android:paddingTop="1dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:orientation="horizontal">
+                    android:id="@+id/cabecalho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:foregroundGravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="2dp"
+                    android:paddingTop="5dp">
 
                     <TextView
-                        android:id="@+id/ratingText"
+                        android:id="@+id/nomeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="50dp"
                         android:text=""
                         android:textColor="@color/branco"
                         android:textSize="17sp" />
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/detailsFloating"
+                    <TextView
+                        android:id="@+id/telefoneText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aguarde enquanto carrega os detalhes"
+                        android:textColor="@color/branco"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/ratingText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:backgroundTint="@color/blue"
-                        app:srcCompat="@android:drawable/ic_menu_view" />
+                        android:text=""
+                        android:textColor="@color/branco"
+                        android:textSize="17sp" />
+
                 </LinearLayout>
 
             </LinearLayout>

@@ -24,31 +24,17 @@
         android:inputType="numberPassword"
         android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/detalhesEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_vertical|center_horizontal"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="Pressione para inserir detalhes" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/insertDetails"
-            android:layout_width="98dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            app:backgroundTint="@color/blue"
-            app:srcCompat="@android:drawable/ic_menu_add" />
-    </LinearLayout>
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:hint="Insira os detalhes (Opcional)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="2000"
+        android:maxLines="4"
+        android:scrollHorizontally="false"
+        android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
     <Spinner
         android:id="@+id/spinner"
