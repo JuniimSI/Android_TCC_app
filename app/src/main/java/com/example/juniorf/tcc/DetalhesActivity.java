@@ -236,7 +236,53 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         hideProgressAnswer();
     }
 
-    public void requestDetailsGoogle(){
+    public DetalhesGoogle requestDetailsGoogle(){
+
+
+         if(isOnline(getApplicationContext())){
+            RequestQueue queue = Volley.newRequestQueue(this);
+            LatLng l = displayLocation();
+            String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeId+"&key=AIzaSyDzmS5_MB0psxCMWjPiLkJMda9VEJBzHQw";
+            DetalhesGoogle retorno = new DetalhesGoogle();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jo = new JSONObject(response);
+                                String c = jo.getString("result");
+                                JSONArray jsonArray = new JSONArray(c);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject person = (JSONObject) jsonArray.get(i);
+                                    //-----------------------------------//
+                                    retorno.setAddress(person.getString("formatted_address"));
+                                    retorno.setPriceLevel(person.getString("price_level"));
+                                    retorno.setWebSite(person.getString("website"));
+                                    retorno.setOpenNow((Boolean.parseBoolean(person.getJSONObject("opening_hours").getString("open_now")));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MapsActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            queue.add(stringRequest);
+        }else{
+            hideProgressPontos();
+            Toast.makeText(this, "Verifique sua conexão e tente novamente.", Toast.LENGTH_SHORT).show();
+        }
+
+        return retorno;
+
+
+
+        // formatted_address  opening_hours-open_now  price_level website
         Toast.makeText(this, "google", Toast.LENGTH_SHORT).show();
     }
 
