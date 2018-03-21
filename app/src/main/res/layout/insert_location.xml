@@ -1,45 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_color"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/nomeEditText"
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/nome"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_color"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-    <EditText
-        android:id="@+id/telefoneEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/telefone"
-        android:inputType="numberPassword"
-        android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+        <TextView
+            android:id="@+id/titleInsertId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center"
+            android:text="Insira seu ponto"
+            android:textColor="@color/branco"
+            android:textDirection="locale"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/detalhesEditText"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="top"
-        android:hint="Insira os detalhes (Opcional)"
-        android:inputType="textCapSentences|textMultiLine"
-        android:maxLength="2000"
-        android:maxLines="4"
-        android:scrollHorizontally="false"
-        android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+        <EditText
+            android:id="@+id/nomeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/nome"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/telefoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/telefone"
+            android:inputType="numberPassword"
+            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
+        <EditText
+            android:id="@+id/detalhesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="top"
+            android:hint="Insira os detalhes (Opcional)"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
+            android:scrollHorizontally="false"
+            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/insertTypeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.2"
+                android:clickable="true"
+                app:backgroundTint="@color/blue"
+                app:srcCompat="@android:drawable/stat_notify_more" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
