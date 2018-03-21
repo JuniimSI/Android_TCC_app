@@ -18,12 +18,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,8 +48,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.juniorf.tcc.CONFIG.AppController;
 import com.example.juniorf.tcc.CONSTANTS.Functions;
 import com.example.juniorf.tcc.DAO.MyLocationDAO;
+import com.example.juniorf.tcc.DAO.TipoDAO;
 import com.example.juniorf.tcc.DetalhesActivity;
 import com.example.juniorf.tcc.MODEL.MyLocation;
+import com.example.juniorf.tcc.MODEL.Tipo;
 import com.example.juniorf.tcc.R;
 import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
 import com.google.android.gms.common.ConnectionResult;
@@ -675,6 +679,43 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     telefone.setTransformationMethod(null);
                     final Spinner tipo = (Spinner) pront.findViewById(R.id.spinner);
                     final String[] type = {""};
+
+                    FloatingActionButton insertTipoButton = (FloatingActionButton) pront.findViewById(R.id.insertTypeButton);
+                    insertTipoButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final String[] n = {"", ""};
+
+                            LayoutInflater layoutInflater = LayoutInflater.from(MapsActivity.this);
+                            View pront = layoutInflater.inflate(R.layout.insert_answer, null);
+                            android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(MapsActivity.this);
+                            alertDialogBuilder.setView(pront);
+
+                            final EditText nome = (EditText) pront.findViewById(R.id.textAnswer);
+
+                            alertDialogBuilder.setCancelable(false).setPositiveButton("Responder", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    n[0] = nome.getText().toString();
+                                    TipoDAO tipoDAO = new TipoDAO(getApplicationContext());
+                                    Tipo tp = new Tipo();
+                                    tp.setTipo(n[0]);
+                                    Toast.makeText(MapsActivity.this, ""+n[0], Toast.LENGTH_SHORT).show();
+                                    tipoDAO.insert(tp, getApplicationContext());
+
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    return;
+                                }
+                            });
+                            android.app.AlertDialog alert = alertDialogBuilder.create();
+                            alert.show();
+                        }
+                    });
+
                     tipo.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
                     tipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override

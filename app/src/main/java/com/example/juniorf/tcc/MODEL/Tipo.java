@@ -5,4 +5,27 @@ package com.example.juniorf.tcc.MODEL;
  */
 
 public class Tipo {
+	private Integer id;
+    private String tipo;
+
+    public Tipo(){
+
+    }
+
+    public Integer getId(){
+    	return this.id;
+    }
+
+    public String getTipo(){
+    	return this.tipo;
+    }
+
+    public void setId(Integer id){
+    	this.id = id;
+    }
+
+    public void setTipo(String tipo){
+    	this.tipo = tipo;
+    }
+
 }
