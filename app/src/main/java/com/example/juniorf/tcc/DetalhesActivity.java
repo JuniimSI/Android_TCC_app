@@ -64,6 +64,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class DetalhesActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
@@ -252,12 +254,35 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                 String c = jo.getString("result");
                                 JSONObject res = new JSONObject(c);
                                  
-                                     retorno.setAddress(res.getString("formatted_address"));
-                                     retorno.setPriceLevel(res.getString("price_level"));
-                                     retorno.setWebSite(res.getString("website"));
-                                     retorno.setOpenNow(Boolean.parseBoolean(res.getJSONObject("opening_hours").getString("open_now")));
+                                retorno.setAddress(res.getString("formatted_address"));
+                                retorno.setWebSite(res.getString("website"));
+                                retorno.setOpenNow(Boolean.parseBoolean(res.getJSONObject("opening_hours").getString("open_now")));
+                                String situation = "";
+                                if(retorno.getOpenNow())
+                                    situation = "Aberto";
+                                else
+                                    situation = "Fechado";
+                               
+
+                                StringBuilder det = new StringBuilder();
+                                det.append(retorno.getAddress() + "\n" + "\n" +
+                                        retorno.getWebSite() + "\n" + "\n" +
+                                       
+                                        situation );
+                                AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
+                                    builder.setTitle("Detalhes");
+                                    builder.setMessage(det);
+                                    builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                       dialog.cancel();
+
+                                    }
+                                });
+                                builder.show();
                            
                             } catch (JSONException e) {
+                                error();
                                 e.printStackTrace();
                             }
                         }
@@ -265,17 +290,17 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(DetalhesActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
+                    error();
                 }
             });
 
-            queue.add(stringRequest);
-        
-        
+            queue.add(stringRequest);  
         return retorno;
-
     }
 
-    public String requestDetailsWebService(){
+    
+
+    public void requestDetailsWebService(){
         final String[] detalhes = new String[1];
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+placeId, new Response.Listener<String>() {
@@ -289,11 +314,22 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         detalhes[0] = person.getString("detalhes");
                         Toast.makeText(DetalhesActivity.this, "kkkk ta certo?"+detalhes[0], Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
+                            builder.setTitle("Detalhes");
+                            builder.setMessage(detalhes[0]);
+                            builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                               dialog.cancel();
 
+                            }
+                        });
+                        builder.show();
                     }
                 }catch (JSONException e) {
                     Toast.makeText(DetalhesActivity.this, "k"+response, Toast.LENGTH_SHORT).show();
                     Log.d("No", response);
+                    error();
                     e.printStackTrace();
                 }
             }
@@ -301,6 +337,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
+                error();
             }
         })
         {
@@ -315,7 +352,27 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         request.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(request);
 
-        return detalhes[0];
+    }
+    public void error(){
+         AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
+                            builder.setTitle("Oops, uma falha aconteceu...");
+                            builder.setMessage("Tente novamente mais tarde");
+                            builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                           dialog.cancel();
+
+                        }
+                    });
+                    builder.show();
+    }
+
+    public void showDetailsWebService(){
+        requestDetailsWebService();
+    }
+
+    public void showDetailsGoogle(){
+        requestDetailsGoogle();
     }
 
     @Override
@@ -337,9 +394,9 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             public void onClick(View view) {
                 if(placeId!=null) {
                     if(!existArroba(placeId)) {
-                        requestDetailsGoogle();
+                        showDetailsGoogle();
                     } else {
-                        requestDetailsWebService();
+                        showDetailsWebService();
                     }
                 }else{
                     Toast.makeText(DetalhesActivity.this, "Aguarde carregar as informações necessárias", Toast.LENGTH_SHORT).show();
