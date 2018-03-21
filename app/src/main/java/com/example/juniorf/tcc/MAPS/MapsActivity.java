@@ -687,24 +687,24 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             final String[] n = {"", ""};
 
                             LayoutInflater layoutInflater = LayoutInflater.from(MapsActivity.this);
-                            View pront = layoutInflater.inflate(R.layout.insert_answer, null);
+                            View pront = layoutInflater.inflate(R.layout.insert_type, null);
                             android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(MapsActivity.this);
                             alertDialogBuilder.setView(pront);
 
                             final EditText nome = (EditText) pront.findViewById(R.id.textAnswer);
 
-                            alertDialogBuilder.setCancelable(false).setPositiveButton("Responder", new DialogInterface.OnClickListener() {
+                            alertDialogBuilder.setCancelable(false).setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     n[0] = nome.getText().toString();
                                     TipoDAO tipoDAO = new TipoDAO(getApplicationContext());
                                     Tipo tp = new Tipo();
                                     tp.setTipo(n[0]);
-                                    Toast.makeText(MapsActivity.this, ""+n[0], Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MapsActivity.this, "" + n[0], Toast.LENGTH_SHORT).show();
                                     tipoDAO.insert(tp, getApplicationContext());
 
                                 }
-                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
