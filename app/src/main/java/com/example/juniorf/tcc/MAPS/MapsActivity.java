@@ -1,7 +1,7 @@
 package com.example.juniorf.tcc.MAPS;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,21 +18,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.os.AsyncTask;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +45,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.juniorf.tcc.CONFIG.AppController;
 import com.example.juniorf.tcc.CONSTANTS.Functions;
-import com.example.juniorf.tcc.CONSTANTS.OnInfoWindowElemTouchListener;
 import com.example.juniorf.tcc.DAO.MyLocationDAO;
 import com.example.juniorf.tcc.DetalhesActivity;
 import com.example.juniorf.tcc.MODEL.MyLocation;
@@ -81,7 +74,6 @@ import java.util.List;
 import java.util.Map;
 
 import static android.graphics.Color.BLUE;
-import static android.graphics.Color.YELLOW;
 
 public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, Functions {
