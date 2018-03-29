@@ -1,5 +1,7 @@
 package com.example.juniorf.tcc.DAO;
 
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.juniorf.tcc.MODEL.Tipo;
 
 import android.content.Context;
@@ -17,7 +19,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.juniorf.tcc.CONFIG.AppController;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -57,30 +65,17 @@ public class TipoDAO extends  AbstractDAO<Tipo> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    public List<Tipo> getTipos(final Context t){
-        List<Tipos> lista = new ArrayList<Tipo>();
-        
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/get_types.php", null, new Response.Listener<JSONArray>() {
+    public List<String> getTipos(final Context t){
+        final List<String> lista = new ArrayList<String>();
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/show_type.php", new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    jsonResponse = "";
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject person = (JSONObject) response.get(i);
-
-                        Tipo tipo = new Tipo();
-                        String id = person.getString("id");
-                        String emailOrigem = person.getString("emailOrigem");
-                        String emailDestino = person.getString("emailDestino");
-                        String message = person.getString("message");
-                        tipo.setId(Integer.parseInt(id));
-                        tipo.setEmailOrigem(emailOrigem);
-                        tipo.setEmailDestino(emailDestino);
-                        tipo.setTexto(message);
-                        tipo.setLocal(message);
-                        Log.i("MENSAGEMZ", mensagemz.getTexto());
-                        lista.add(message);
+                        String tipo = person.getString("tipo");
+                        lista.add(tipo);
                     }
                 }
                 catch (JSONException e) {
@@ -93,9 +88,9 @@ public class TipoDAO extends  AbstractDAO<Tipo> {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         });
-        // Adding request to request queue
+
         AppController.getInstance().addToRequestQueue(req);
-        return this.lista;
+        return lista;
     }
 
 }

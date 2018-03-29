@@ -93,6 +93,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.util.Log;
 
 import static android.graphics.Color.BLUE;
 
@@ -127,7 +128,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
 
 
-    String[] Languages = {"Tipos", "Restaurante", "Banco", "Bar", "Eventos", "Oficina", "Hospital/Postos", "Posto de Gasolina", "Troca", "Venda", "Museus", "LavaJato" };
+    List<String> Languages = new ArrayList<String>();
+    //Preencher com os tipos padroes ja estabelicidos anteriormente
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
 
     @Override
@@ -150,7 +152,39 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         ///TYPES SPINNER
         types = (Spinner) findViewById(R.id.types);
 
-        types.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
+
+        ///Preenchendo as linguagens com os valores do banco
+
+        final List<String> lista = new ArrayList<String>();
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/show_type.php", new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject person = (JSONObject) response.get(i);
+                        String tipo = person.getString("Tipo");
+                        Languages.add(tipo);
+                    }
+                    types.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
+                }
+                catch (JSONException e) {
+                    //EXIBIR ERRO
+                    Log.e("ENTRA", "NO EXCEPTION");
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //EXIBIR ERRO
+                VolleyLog.d("TAG", "Error: " + error.getMessage());
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(req);
+
+
         //Método do Spinner para capturar o item selecionado
         types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -174,8 +208,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     } else if (nome == "LavaJato") {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_wash");
-                    }
-                    else if (nome == "Eventos") {
+                    } else if (nome == "Eventos") {
                         eraseMarkers();
                         serviceSearch("evento");
                     } else if (nome == "Oficina") {
@@ -390,10 +423,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             tipoz = type;
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
-               // if(lista.get(i).getId_reference()!=null)
-               //     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.PADRAO).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
-               // else
-               //     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.PADRAO)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                if(lista.get(i).getId_reference()!=null)
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                else
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
     }
@@ -412,7 +445,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     public class TypesAdapter extends ArrayAdapter {
 
         public TypesAdapter(Context context, int textViewResourceId,
-                            String[] objects) {
+                            List<String> objects) {
             super(context, textViewResourceId, objects);
         }
 
@@ -423,12 +456,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             View layout = inflater.inflate(R.layout.spinner_item, parent, false);
 
             TextView tvLanguage = (TextView) layout.findViewById(R.id.tvLanguage);
-            tvLanguage.setText(Languages[position]);
+            tvLanguage.setText(Languages.get(position));
             tvLanguage.setTextColor(Color.rgb(75, 180, 225));
             ImageView img = (ImageView) layout.findViewById(R.id.imgLanguage);
             if(position>11){
                 position = position;
-                //img.setImageResource(imagePadrao); ///Setar imagem padrao caso esteja fora do range    
+                img.setImageResource(R.mipmap.ic_marker); ///Setar imagem padrao caso esteja fora do range
             } else
                 img.setImageResource(images[position]); ///Setar imagem padrao caso esteja fora do range
 

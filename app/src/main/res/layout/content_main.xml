@@ -26,15 +26,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10">
+            android:foregroundGravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivInitTutorialButton"
@@ -42,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.7"
-                    android:background="@mipmap/ic_help"
+                    android:background="@mipmap/ic_tutorial_gm"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp" />
 
@@ -61,7 +59,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:foregroundGravity="center"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -69,8 +68,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.4"
-                    android:background="@mipmap/ic_map"
+                    android:background="@mipmap/ic_gm"
+                    android:foregroundGravity="center"
+                    android:maxWidth="50dp"
+                    android:minHeight="300dp"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp" />
 
@@ -78,7 +79,6 @@
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
                     android:gravity="center_horizontal"
                     android:text="Clique no mapa para iniciar"
                     android:textColor="@color/background" />

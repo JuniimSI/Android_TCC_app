@@ -28,9 +28,9 @@
         android:id="@+id/help"
         android:layout_width="45dp"
         android:layout_height="48dp"
-        android:background="@mipmap/ic_help"
+        android:background="@mipmap/ic_tutorial_gm"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:srcCompat="@mipmap/ic_help" />
+        app:srcCompat="@mipmap/ic_tutorial_gm" />
 
 </FrameLayout>
