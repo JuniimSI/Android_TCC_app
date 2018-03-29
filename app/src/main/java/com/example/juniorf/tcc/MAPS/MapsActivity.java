@@ -1,5 +1,21 @@
 package com.example.juniorf.tcc.MAPS;
 
+
+/*
+    EditText cpf = (EditText) findViewById(R.id.txtCPF);
+    EditText tel = (EditText) findViewById(R.id.txtTelefone);
+
+
+
+    MaskEditTextChangedListener maskCPF = new MaskEditTextChangedListener("###.###.###-##", cpf);
+    MaskEditTextChangedListener maskTEL = new MaskEditTextChangedListener("(##)####-####", tel);
+
+
+    cpf.addTextChangedListener(maskCPF)
+           tel.addTextChangedListener(maskTEL);*/
+
+
+
 import android.Manifest;
 import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -32,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -110,7 +127,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
 
 
-    String[] Languages = { "Tipos", "Restaurante", "Banco", "Bar","Eventos","Oficina", "Hospital/Postos", "Posto de Gasolina","Troca", "Venda", "Museus","LavaJato" };
+    String[] Languages = {"Tipos", "Restaurante", "Banco", "Bar", "Eventos", "Oficina", "Hospital/Postos", "Posto de Gasolina", "Troca", "Venda", "Museus", "LavaJato" };
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
 
     @Override
@@ -138,6 +155,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
+                //types.getSelectedItem()
                 if (posicao == 0 && verificaGPS()==true)
                     Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
                 else if(verificaGPS() == false){
@@ -368,6 +386,16 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital_posto)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
+        else {
+            tipoz = type;
+            for (int i = 0; i < lista.size(); i++) {
+                LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
+               // if(lista.get(i).getId_reference()!=null)
+               //     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.PADRAO).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+               // else
+               //     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.PADRAO)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+            }
+        }
     }
 
     
@@ -398,7 +426,11 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             tvLanguage.setText(Languages[position]);
             tvLanguage.setTextColor(Color.rgb(75, 180, 225));
             ImageView img = (ImageView) layout.findViewById(R.id.imgLanguage);
-            img.setImageResource(images[position]);
+            if(position>11){
+                position = position;
+                //img.setImageResource(imagePadrao); ///Setar imagem padrao caso esteja fora do range    
+            } else
+                img.setImageResource(images[position]); ///Setar imagem padrao caso esteja fora do range
 
             if (position == 0) {
                 img.setVisibility(View.GONE);
@@ -460,7 +492,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                                 JSONObject person = (JSONObject) jsonArray.get(i);
                                                 emailz[0] = person.getString("email");
 
-
                                                 emailDestinos = emailz[0];
                                                 
                                                     Intent is = new Intent(MapsActivity.this, DetalhesActivity.class);
@@ -510,27 +541,25 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         mMap = googleMap;
         rotas = new ArrayList<LatLng>();
         lista = new ArrayList<MyLocation>();
-        //getMarkers();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         if (mMap != null) {
-
+                ///////////Gera rota quando clica simples no marker/////////
               mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
                   @Override
                   public void onInfoWindowClick(Marker marker) {
                       geraRota(displayLocation(), marker.getPosition());
                   }
               });
-
+               ///////////Obtem detalhes quando clica longo no marker/////////
               mMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
                   @Override
                   public void onInfoWindowLongClick(Marker marker) {
                       detailsFind(marker);
                   }
               });
-
+                ///////////Gera janela de informações quando clica simples no marker/////////
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(final Marker marker) {
@@ -573,7 +602,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject person = (JSONObject) jsonArray.get(i);
                                     emailz[0] = person.getString("email");
-
 
                                     emailDestinos = emailz[0];
                                      Toast.makeText(MapsActivity.this, "iniStartDrag"+marker.getSnippet()+"+"+emailDestinos, Toast.LENGTH_SHORT).show();
@@ -666,7 +694,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onMapLongClick(final LatLng latLng) {
                 if (email != null && verificaGPS() == true) {
-                    final String[] n = {"", "", ""};
+                    final String[] n = {"", "", "", ""};
 
                     LayoutInflater layoutInflater = LayoutInflater.from(MapsActivity.this);
                     View pront = layoutInflater.inflate(R.layout.insert_location, null);
@@ -676,6 +704,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     final EditText nome = (EditText) pront.findViewById(R.id.nomeEditText);
                     final EditText telefone = (EditText) pront.findViewById(R.id.telefoneEditText);
                     final EditText detalhes = (EditText) pront.findViewById(R.id.detalhesEditText);
+                    final EditText horario = (EditText) pront.findViewById(R.id.horariosEditText);
+                    final LinearLayout llspinner = (LinearLayout) pront.findViewById(R.id.llspinner);
+                    final LinearLayout lltipocriado = (LinearLayout) pront.findViewById(R.id.lltipocriado);
+                    final TextView tipoCriado = (TextView) pront.findViewById(R.id.tipoCriadoId);
                     telefone.setTransformationMethod(null);
                     final Spinner tipo = (Spinner) pront.findViewById(R.id.spinner);
                     final String[] type = {""};
@@ -702,6 +734,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     tp.setTipo(n[0]);
                                     Toast.makeText(MapsActivity.this, "" + n[0], Toast.LENGTH_SHORT).show();
                                     tipoDAO.insert(tp, getApplicationContext());
+                                    type[0] = n[0];
+                                    llspinner.setVisibility(View.GONE);
+                                    lltipocriado.setVisibility(View.VISIBLE);
+                                    tipoCriado.setText(type[0]);
 
                                 }
                             }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -716,57 +752,64 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         }
                     });
 
-                    tipo.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
-                    tipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            type[0] = parent.getItemAtPosition(position).toString();
-                            if (position == 0)
-                                Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                            else if(type[0] == "Tipos")
-                                Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                            else if (type[0] == "Restaurante") {
-                                type[0] = ("restaurant");
-                                return;
-                            } else if (type[0] == "Banco") {
-                                type[0] = ("bank");
-                                return;
-                            } else if (type[0] == "Bar") {
-                                type[0] = ("bar");
-                                return;
-                            } else if (type[0] == "LavaJato") {
-                                type[0] = ("car_wash");
-                                return;
+                    if(type[0] == ""){
+                        tipo.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
+                        tipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                type[0] = parent.getItemAtPosition(position).toString();
+                                if (position == 0)
+                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
+                                else if(type[0] == "Tipos")
+                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
+                                else if (type[0] == "Restaurante") {
+                                    type[0] = ("restaurant");
+                                    return;
+                                } else if (type[0] == "Banco") {
+                                    type[0] = ("bank");
+                                    return;
+                                } else if (type[0] == "Bar") {
+                                    type[0] = ("bar");
+                                    return;
+                                } else if (type[0] == "LavaJato") {
+                                    type[0] = ("car_wash");
+                                    return;
+                                }
+                                else if (type[0] == "Evento") {
+                                    adicionaMarkerGoogle("event");
+                                    return;
+                                } else if (type[0] == "Oficina") {
+                                    type[0] = ("car_repair");
+                                    return;
+                                } else if (type[0] == "Venda") {
+                                    type[0] = ("venda");
+                                    return;
+                                } else if (type[0] == "Troca") {
+                                    type[0] = ("troca");
+                                    return;
+                                } else if (type[0] == "Hospital/Postos") {
+                                    type[0] = ("hospital");
+                                    return;
+                                } else if (type[0] == "Posto de Gasolina") {
+                                    type[0] = ("gas_station");
+                                    return;
+                                } else if (type[0] == "Museus") {
+                                    type[0] = ("museum");
+                                    return;
+                                } else {
+                                    type[0] = type[0];
+                                    return;
+                                }
                             }
-                            else if (type[0] == "Evento") {
-                                adicionaMarkerGoogle("event");
-                                return;
-                            } else if (type[0] == "Oficina") {
-                                type[0] = ("car_repair");
-                                return;
-                            } else if (type[0] == "Venda") {
-                                type[0] = ("venda");
-                                return;
-                            } else if (type[0] == "Troca") {
-                                type[0] = ("troca");
-                                return;
-                            } else if (type[0] == "Hospital/Postos") {
-                                type[0] = ("hospital");
-                                return;
-                            } else if (type[0] == "Posto de Gasolina") {
-                                type[0] = ("gas_station");
-                                return;
-                            } else if (type[0] == "Museus") {
-                                type[0] = ("museum");
-                                return;
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
                             }
-                        }
+                        });
+                    }else{
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
+                    }
 
                     alertDialogBuilder.setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -774,6 +817,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             n[0] = nome.getText().toString();
                             n[1] = telefone.getText().toString();
                             n[2] = detalhes.getText().toString();
+                            n[3] = horario.getText().toString();
 
                             MyLocation location = new MyLocation();
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
@@ -782,6 +826,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setNome(n[0]);
                             location.setTelefone(n[1]);
                             location.setDetalhes(n[2]);
+                            location.setHorarioFuncionamento(n[3]);
                             if(type[0].equals("Tipos")){
                                 Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
                                 return;
@@ -840,7 +885,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         lista.removeAll(lista);
         lista = new ArrayList<MyLocation>();
         mMap.clear();
-        // Removes all markers, overlays, and polylines from the map.
     }
 
     public void geraRota(LatLng ll1, final LatLng ll2) {

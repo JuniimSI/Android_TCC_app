@@ -2,9 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_delete"
+        android:id="@+id/action_tutorial"
+        android:icon="@mipmap/ic_help"
+        android:title="Tutorial"
         android:orderInCategory="1"
-        android:title="Deletar"
-        android:icon="@drawable/lixo"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/lixeirinha"
+        android:orderInCategory="0"
+        android:title="Deletar"
+        app:showAsAction="always" />
 </menu>

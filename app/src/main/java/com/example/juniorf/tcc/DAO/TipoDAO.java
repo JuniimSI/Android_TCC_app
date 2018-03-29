@@ -57,4 +57,45 @@ public class TipoDAO extends  AbstractDAO<Tipo> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
+    public List<Tipo> getTipos(final Context t){
+        List<Tipos> lista = new ArrayList<Tipo>();
+        
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/get_types.php", null, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    jsonResponse = "";
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject person = (JSONObject) response.get(i);
+
+                        Tipo tipo = new Tipo();
+                        String id = person.getString("id");
+                        String emailOrigem = person.getString("emailOrigem");
+                        String emailDestino = person.getString("emailDestino");
+                        String message = person.getString("message");
+                        tipo.setId(Integer.parseInt(id));
+                        tipo.setEmailOrigem(emailOrigem);
+                        tipo.setEmailDestino(emailDestino);
+                        tipo.setTexto(message);
+                        tipo.setLocal(message);
+                        Log.i("MENSAGEMZ", mensagemz.getTexto());
+                        lista.add(message);
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("TAG", "Error: " + error.getMessage());
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+        return this.lista;
+    }
+
 }

@@ -41,6 +41,7 @@ import com.example.juniorf.tcc.DAO.MyLocationDAO;
 import com.example.juniorf.tcc.MAPS.MapsActivity;
 import com.example.juniorf.tcc.MODEL.Mensagem;
 import com.example.juniorf.tcc.MODEL.MyLocation;
+import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
 import com.example.juniorf.tcc.MODEL.DetalhesGoogle;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -256,7 +257,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                     situation = "Aberto";
                                 else
                                     situation = "Fechado";
-                               
+            
 
                                 StringBuilder det = new StringBuilder();
                                 det.append(retorno.getAddress() + "\n" + "\n" +
@@ -295,7 +296,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     
 
     public void requestDetailsWebService(){
-        final String[] detalhes = new String[1];
+        final String[] detalhes = new String[2];
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+placeId, new Response.Listener<String>() {
             @Override
@@ -304,13 +305,15 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     if (response.startsWith("ï»¿")) { response = response.substring(3); }
                     JSONArray jsonArray = new JSONArray(response);
                     detalhes[0] = new String();
+                    detalhes[1] = new String();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         detalhes[0] = person.getString("detalhes");
+                        detalhes[1] = person.getString("horario_funcionamento");
                         Toast.makeText(DetalhesActivity.this, "kkkk ta certo?"+detalhes[0], Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
                             builder.setTitle("Detalhes");
-                            builder.setMessage(detalhes[0]);
+                            builder.setMessage(detalhes[0] + "\n\nHorário de funcionamento: \n\n" + detalhes[1]);
                             builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
@@ -568,6 +571,11 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
                 }
             }
+        }
+        if(id == R.id.action_tutorial){
+            Intent i = new Intent(this, TutorialActivity.class);
+            startActivity(i);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -219,6 +219,8 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                 parameters.put("telefone", location.getTelefone());
                 parameters.put("email", location.getEmail());
                 parameters.put("detalhes", location.getDetalhes());
+                parameters.put("horario", location.getHorarioFuncionamento());
+
               //  hidepDialog();
                 return parameters;
             }

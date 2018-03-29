@@ -16,6 +16,7 @@ public class MyLocation {
     private String email;
     private String id_reference;
     private String detalhes;
+    private String horario_funcionamento;
 
     public String getDetalhes(){
         return detalhes;
@@ -23,6 +24,14 @@ public class MyLocation {
 
     public void setDetalhes(String detalhes){
         this.detalhes = detalhes;
+    }
+
+    public String getHorarioFuncionamento(){
+        return horario_funcionamento;
+    }
+
+    public void setHorarioFuncionamento(String horario){
+        this.horario_funcionamento = horario;
     }
 
     public String getId_reference() {
