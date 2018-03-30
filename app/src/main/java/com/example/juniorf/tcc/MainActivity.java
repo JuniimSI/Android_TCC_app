@@ -51,21 +51,13 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient googleApiClient;
     private String email;
     private ImageView ivInitMapButton;
-    private ImageView ivInitTutorialButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ////DADOS activity
-        ivInitTutorialButton = (ImageView) findViewById(R.id.ivInitTutorialButton);
-        ivInitTutorialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, TutorialActivity.class);
-                startActivity(i);
-            }
-        });
+
         ivInitMapButton = (ImageView) findViewById(R.id.ivInitMapButton);
         ivInitMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,9 +132,10 @@ public class MainActivity extends AppCompatActivity
 
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
-            return true;
+        if(id == R.id.action_tutorial){
+            Intent i = new Intent(this, TutorialActivity.class);
+            startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
