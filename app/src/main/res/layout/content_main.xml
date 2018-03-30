@@ -48,8 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_horizontal"
-                android:text="Clique no mapa para iniciar"
-                android:textColor="@color/background" />
+                android:paddingTop="5dp"
+                android:text="Clique na imagem para iniciar"
+                android:textColor="@color/background"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
