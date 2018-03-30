@@ -46,7 +46,6 @@
                 android:layout_height="match_parent"
                 android:foregroundGravity="center_vertical"
                 android:orientation="horizontal"
-
                 android:paddingTop="1dp">
 
                 <LinearLayout
