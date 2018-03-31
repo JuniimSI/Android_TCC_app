@@ -196,37 +196,37 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }else {
                     String nome = parent.getItemAtPosition(posicao).toString();
-                    if (nome == "Restaurante") {
+                    if (nome.equals("Restaurante")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("restaurant");
-                    } else if (nome == "Banco") {
+                    } else if (nome.equals("Banco")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("bank");
-                    } else if (nome == "Bar") {
+                    } else if (nome.equals("Bar")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("bar");
-                    } else if (nome == "LavaJato") {
+                    } else if (nome.equals("LavaJato")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_wash");
-                    } else if (nome == "Eventos") {
+                    } else if (nome.equals("Eventos")) {
                         eraseMarkers();
                         serviceSearch("evento");
-                    } else if (nome == "Oficina") {
+                    } else if (nome.equals("Oficina")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_repair");
-                    } else if (nome == "Venda") {
+                    } else if (nome.equals( "Venda")) {
                         eraseMarkers();
                         serviceSearch("venda");
-                    } else if (nome == "Troca") {
+                    } else if (nome.equals("Troca")) {
                         eraseMarkers();
                         serviceSearch("troca");
-                    } else if (nome == "Hospital/Postos") {
+                    } else if (nome.equals("Hospital/Postos")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("hospital");
-                    } else if (nome == "Posto de Gasolina") {
+                    } else if (nome.equals("Posto de Gasolina")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("gas_station");
-                    } else if (nome == "Museus") {
+                    } else if (nome .equals("Museus")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("museum");
                     } else {
@@ -411,6 +411,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
             } tipoz = "hospital_posto";
+            Toast.makeText(this, "Id"+lista.get(0).getId_reference(), Toast.LENGTH_SHORT).show();
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
@@ -1074,6 +1075,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     private void placeSearch(final String type) {
+        Toast.makeText(MapsActivity.this, "Entra no placeSearch "+type, Toast.LENGTH_SHORT).show();
         showProgressPontos();
         if(isOnline(getApplicationContext())){
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -1100,6 +1102,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 hideProgressPontos();
                                 serviceSearch(type);
                             } catch (JSONException e) {
+                                Toast.makeText(MapsActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
                         }
