@@ -22,12 +22,11 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@android:style/Widget.DeviceDefault.TextView.ListSeparator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:gravity="right"
-        android:paddingRight="15dp"
+        android:paddingRight="4dp"
         android:text="GranMapey"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
