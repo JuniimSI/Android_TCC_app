@@ -16,11 +16,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_mapa"
         android:layout_weight="0.9"
-        />
+        android:background="@mipmap" />
 
     <TextView
         android:id="@+id/textView"
