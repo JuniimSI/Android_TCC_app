@@ -841,8 +841,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                             }
                         });
-                    }else{
-
                     }
 
                     alertDialogBuilder.setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -874,7 +872,45 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                             if(type[0]!=null) {
                                 eraseMarkers();
-                                adicionaMarkerGoogle(type[0]);
+                                if(type[0] == "Tipos")
+                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
+                                else if (type[0] == "Restaurante") {
+                                    adicionaMarkerGoogle("restaurant");
+                                    return;
+                                } else if (type[0] == "Banco") {
+                                   adicionaMarkerGoogle("bank");
+                                    return;
+                                } else if (type[0] == "Bar") {
+                                   adicionaMarkerGoogle("bar");
+                                    return;
+                                } else if (type[0] == "LavaJato") {
+                                   adicionaMarkerGoogle("car_wash");
+                                    return;
+                                } else if (type[0] == "Evento") {
+                                    adicionaMarkerGoogle("event");
+                                    return;
+                                } else if (type[0] == "Oficina") {
+                                    adicionaMarkerGoogle("car_repair");
+                                    return;
+                                } else if (type[0] == "Venda") {
+                                   adicionaMarkerGoogle("venda");
+                                    return;
+                                } else if (type[0] == "Troca") {
+                                    adicionaMarkerGoogle("troca");
+                                    return;
+                                } else if (type[0] == "Hospital/Postos") {
+                                    adicionaMarkerGoogle("hospital");
+                                    return;
+                                } else if (type[0] == "Posto de Gasolina") {
+                                    adicionaMarkerGoogle("gas_station");
+                                    return;
+                                } else if (type[0] == "Museus") {
+                                    adicionaMarkerGoogle("museum");
+                                    return;
+                                } else {
+                                    serviceSearch(type[0]);
+                                    return;
+                                }
                             }
 
 
@@ -1022,6 +1058,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     public void serviceSearch(final String type){
+        Toast.makeText(MapsActivity.this, "wbserv  "+type, Toast.LENGTH_SHORT).show();
         showProgressPontos();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/show_location_type.php", new Response.Listener<String>() {
@@ -1075,7 +1112,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     private void placeSearch(final String type) {
-        Toast.makeText(MapsActivity.this, "Entra no placeSearch "+type, Toast.LENGTH_SHORT).show();
         showProgressPontos();
         if(isOnline(getApplicationContext())){
             RequestQueue queue = Volley.newRequestQueue(this);
