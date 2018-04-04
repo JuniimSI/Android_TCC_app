@@ -114,28 +114,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     List<String> Languages = new ArrayList<String>();
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
 
-        //Tutorial help button
-        helpButton = (ImageButton) findViewById(R.id.help);
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        ///Verificando google services
-        ///TYPES SPINNER
-        types = (Spinner) findViewById(R.id.types);
-
-
-        ///Preenchendo as linguagens com os valores do banco
+    public void preencheSpinner(){
+        Languages = null;
+        Languages = new ArrayList<String>();
         final List<String> lista = new ArrayList<String>();
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/show_type.php", new Response.Listener<JSONArray>() {
 
@@ -163,6 +145,31 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         });
 
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+
+        //Tutorial help button
+        helpButton = (ImageButton) findViewById(R.id.help);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        ///Verificando google services
+        ///TYPES SPINNER
+        types = (Spinner) findViewById(R.id.types);
+
+
+        ///Preenchendo as linguagens com os valores do banco
+        preencheSpinner();
 
 
         //Método do Spinner para capturar o item selecionado
@@ -741,7 +748,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     TipoDAO tipoDAO = new TipoDAO(getApplicationContext());
                                     Tipo tp = new Tipo();
                                     tp.setTipo(n[0]);
-                                    Toast.makeText(MapsActivity.this, "" + n[0], Toast.LENGTH_SHORT).show();
                                     tipoDAO.insert(tp, getApplicationContext());
                                     type[0] = n[0];
                                     llspinner.setVisibility(View.GONE);
@@ -813,7 +819,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
-
+                                preencheSpinner();
                             }
                         });
                     }
@@ -842,6 +848,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setTipo(type[0]);
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());
+                            preencheSpinner();
                             Toast.makeText(MapsActivity.this, "Inserido com sucesso!", Toast.LENGTH_SHORT).show();
 
                             if(type[0]!=null) {
@@ -886,13 +893,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     return;
                                 }
                             }
-
-
+                            preencheSpinner();
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
+                            preencheSpinner();
                             return;
                         }
                     });
@@ -914,7 +921,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         eraseMarkers();
         getMarkers();
         hideProgressPontos();
-
     }
 
     private void adicionaMarkerGoogle(String type){
@@ -962,7 +968,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         }
                     }
                     drawRoute();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
@@ -976,9 +981,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             public void onErrorResponse(VolleyError error) {
                UtilMethods.error(getApplicationContext());
             }
-
         });
-
         AppController.getInstance().addToRequestQueue(req);
     }
 

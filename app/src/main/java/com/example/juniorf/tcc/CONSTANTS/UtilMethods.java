@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 public class UtilMethods {
 
-    public void error(Context c){
+    public static void error(Context c){
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("Oops, uma falha aconteceu...");
         builder.setMessage("Tente novamente mais tarde");
