@@ -1,21 +1,5 @@
 package com.example.juniorf.tcc.MAPS;
 
-
-/*
-    EditText cpf = (EditText) findViewById(R.id.txtCPF);
-    EditText tel = (EditText) findViewById(R.id.txtTelefone);
-
-
-
-    MaskEditTextChangedListener maskCPF = new MaskEditTextChangedListener("###.###.###-##", cpf);
-    MaskEditTextChangedListener maskTEL = new MaskEditTextChangedListener("(##)####-####", tel);
-
-
-    cpf.addTextChangedListener(maskCPF)
-           tel.addTextChangedListener(maskTEL);*/
-
-
-
 import android.Manifest;
 import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -71,6 +55,8 @@ import com.example.juniorf.tcc.MODEL.MyLocation;
 import com.example.juniorf.tcc.MODEL.Tipo;
 import com.example.juniorf.tcc.R;
 import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
+import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
+import com.example.juniorf.tcc.CONSTANTS.Codes;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -129,7 +115,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
     List<String> Languages = new ArrayList<String>();
-    //Preencher com os tipos padroes ja estabelicidos anteriormente
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
 
     @Override

@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.example.juniorf.tcc.LOGIN.LogInActivity;
 import com.example.juniorf.tcc.MAPS.MapsActivity;
 import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
+import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
+import com.example.juniorf.tcc.CONSTANTS.Codes;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;

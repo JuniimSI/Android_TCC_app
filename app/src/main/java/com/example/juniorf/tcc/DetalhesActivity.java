@@ -43,6 +43,8 @@ import com.example.juniorf.tcc.MODEL.Mensagem;
 import com.example.juniorf.tcc.MODEL.MyLocation;
 import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
 import com.example.juniorf.tcc.MODEL.DetalhesGoogle;
+import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
+import com.example.juniorf.tcc.CONSTANTS.Codes;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -358,7 +360,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                            dialog.cancel();
-
                         }
                     });
                     builder.show();

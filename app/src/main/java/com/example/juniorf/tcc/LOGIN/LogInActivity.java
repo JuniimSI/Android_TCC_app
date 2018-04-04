@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.juniorf.tcc.MainActivity;
 import com.example.juniorf.tcc.R;
+import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
+import com.example.juniorf.tcc.CONSTANTS.Codes;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
