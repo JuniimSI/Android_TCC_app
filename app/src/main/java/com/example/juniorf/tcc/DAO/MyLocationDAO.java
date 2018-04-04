@@ -40,12 +40,10 @@ import static android.R.attr.type;
 public class MyLocationDAO extends AbstractDAO<MyLocation>{
 
 
-    private String urlJsonInsert = "http://grainmapey.pe.hu/GranMapey/insert.php";
     private String urlJsonInsertLocation = "http://grainmapey.pe.hu/GranMapey/insert_location.php";
     private String urlJsonDetailsLocation = "http://grainmapey.pe.hu/GranMapey/details_location.php";
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
     private String urlJsonDeleteLocation = "http://grainmapey.pe.hu/GranMapey/delete_location.php";
-    private String urlJsonArry = "http://grainmapey.pe.hu/GranMapey/show_location.php";
     private ProgressDialog pDialog;
     private String Tag = "Akii";
     private ArrayList<MyLocation> lista;

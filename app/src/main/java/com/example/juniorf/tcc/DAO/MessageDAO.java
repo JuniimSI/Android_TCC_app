@@ -34,9 +34,7 @@ import java.util.Map;
 
 public class MessageDAO extends  AbstractDAO<Mensagem> {
 
-    private String urlJsonInsert = "http://grainmapey.pe.hu/GranMapey/insert.php";
     private String urlJsonInsertLocation = "http://grainmapey.pe.hu/GranMapey/insert_message.php";
-    private String urlJsonArry = "http://grainmapey.pe.hu/GranMapey/show_message.php";
     private ProgressDialog pDialog;
     private String Tag = "Akii";
     private List<String> lista = new ArrayList<String>();
@@ -57,7 +55,6 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(t, "kk "+response, Toast.LENGTH_SHORT).show();
                 try {
                     JSONArray ja = new JSONArray(response);
                     JSONObject jo = (JSONObject) ja.get(0);
@@ -153,12 +150,9 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
     }
 
     public List<String> show(final Mensagem mensagem, final Context c){
-        Log.i("kkkkkk", "ANTES DO REQ");
         Map<String, String> params = new HashMap();
         params.put("emailDestino", mensagem.getEmailDestino());
-        Log.i("NOME DO DESTINO", mensagem.getEmailDestino());
         JSONObject parameters = new JSONObject(params);
-        Log.i("kkk", "antes do req");
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/show_message.php", parameters, new Response.Listener<JSONArray>() {
 
             @Override
@@ -178,7 +172,6 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
                         mensagemz.setEmailDestino(emailDestino);
                         mensagemz.setTexto(message);
                         mensagemz.setLocal(message);
-                        Log.i("MENSAGEMZ", mensagemz.getTexto());
                         lista.add(message);
                     }
                 }
@@ -231,7 +224,6 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
     }
 
     public void insertAnswer(final long idMessage, final String emailDestino, final String emailOrigem, final String answer, Context t){
-        Toast.makeText(t, "k"+emailOrigem, Toast.LENGTH_SHORT).show();
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonInsertAnswer, new Response.Listener<String>() {
             @Override
