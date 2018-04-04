@@ -554,6 +554,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                             i.putExtras(bundle);
                                             Toast.makeText(DetalhesActivity.this, "Deletado", Toast.LENGTH_SHORT).show();
                                             startActivity(i);
+                                            finish();
                                         } else {
                                             Toast.makeText(DetalhesActivity.this, "Erro no delete, Tente outra vez..", Toast.LENGTH_SHORT).show();
                                             hideProgressDeleteMarker();
