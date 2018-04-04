@@ -210,6 +210,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
 		            respostas.put(m, answers);
                 } catch (JSONException e1) {
+                    UtilMethods.error(getApplicationContext());
                     e1.printStackTrace();
                 }
             }
@@ -236,7 +237,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public DetalhesGoogle requestDetailsGoogle(){
-            Log.e("PRE", placeId);
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeId+"&key=AIzaSyDzmS5_MB0psxCMWjPiLkJMda9VEJBzHQw";
             final DetalhesGoogle retorno = new DetalhesGoogle();
@@ -741,12 +741,14 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
                 }
                 catch (JSONException e) {
+                    UtilMethods.error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                UtilMethods.error(getApplicationContext());
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         })

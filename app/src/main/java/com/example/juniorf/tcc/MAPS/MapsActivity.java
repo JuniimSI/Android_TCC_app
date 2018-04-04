@@ -97,18 +97,15 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private List<LatLng> rotas;
     private Polyline polyline;
 
-
     ////////Emails
     public String email;
     public String emailDestinos = "";
-
 
     ////////Types
     public Spinner types;
     public String typeToken;
     public ImageButton helpButton;
     public String tipoz = "";
-
 
     ////////URL
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
@@ -139,7 +136,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
         ///Preenchendo as linguagens com os valores do banco
-
         final List<String> lista = new ArrayList<String>();
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, "http://grainmapey.pe.hu/GranMapey/show_type.php", new Response.Listener<JSONArray>() {
 
@@ -154,15 +150,14 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     types.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
                 }
                 catch (JSONException e) {
-                    //EXIBIR ERRO
-                    Log.e("ENTRA", "NO EXCEPTION");
+                    UtilMethods.error(MapsActivity.this);
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //EXIBIR ERRO
+                UtilMethods.error(MapsActivity.this);
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         });
@@ -248,7 +243,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         this.email = bundle.getString("emailOrigem");
-        Toast.makeText(this, "EmailOrigem emal"+email, Toast.LENGTH_SHORT).show();
         //Components
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -526,18 +520,16 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                                     is.putExtras(bundle);
                                                     startActivity(is);
 
-                                               Toast.makeText(getApplicationContext(), "kkkk ta certo?"+emailz[0], Toast.LENGTH_SHORT).show();
-
                                             }
                                         }catch (JSONException e) {
-                                            Toast.makeText(getApplicationContext(), "k"+response, Toast.LENGTH_SHORT).show();
+                                            UtilMethods.error(getApplicationContext());
                                             e.printStackTrace();
                                         }
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        VolleyLog.d("TAG", "Error:soraia " + error.getMessage());
+                                        UtilMethods.error(getApplicationContext());
                                     }
                                 })
                                 {
@@ -628,22 +620,20 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                         if(email==null){
                                             first = marker;
                                         } if(!email.equals(emailDestinos)){
-                                            Toast.makeText(MapsActivity.this, email+" "+emailDestinos+" Você não tem autorização", Toast.LENGTH_SHORT).show();
                                             first = marker;
                                         }
 
-                                   Toast.makeText(getApplicationContext(), "kkkk ta certo?"+emailz[0], Toast.LENGTH_SHORT).show();
 
                                 }
                             }catch (JSONException e) {
-                                Toast.makeText(getApplicationContext(), "k"+response, Toast.LENGTH_SHORT).show();
+                                UtilMethods.error(getApplicationContext());
                                 e.printStackTrace();
                             }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d("TAG", "Error:soraia " + error.getMessage());
+                            UtilMethods.error(getApplicationContext());
                         }
                     })
                     {
@@ -849,7 +839,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 return;
                             }
                             type[0] = type[0].replace("\n", "").replace("\t", "").replace(" ","");
-                            Toast.makeText(MapsActivity.this, type[0], Toast.LENGTH_SHORT).show();
                             location.setTipo(type[0]);
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());
@@ -985,9 +974,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        "Carregando..", Toast.LENGTH_SHORT).show();
+               UtilMethods.error(getApplicationContext());
             }
 
         });
@@ -1074,13 +1061,14 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     hideProgressPontos();
                 }
                 catch (JSONException e) {
+                    UtilMethods.error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("TAG", "Error: " + error.getMessage());
+                UtilMethods.error(getApplicationContext());
             }
         })
         {
@@ -1123,14 +1111,14 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 hideProgressPontos();
                                 serviceSearch(type);
                             } catch (JSONException e) {
-                                Toast.makeText(MapsActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
+                                UtilMethods.error(getApplicationContext());
                                 e.printStackTrace();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(MapsActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
+                    UtilMethods.error(getApplicationContext());
                 }
             });
 
@@ -1174,12 +1162,14 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     }
                     hideProgressPontos();
                 } catch (JSONException e) {
+                    UtilMethods.error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                UtilMethods.error(getApplicationContext());
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         });
