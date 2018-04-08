@@ -153,11 +153,16 @@ public class MainActivity extends AppCompatActivity
            Intent i = new Intent(this, TutorialActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_mapa) {
-            Intent i = new Intent(this, MapsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("emailOrigem", (this.email));
-            i.putExtras(bundle);
-            startActivity(i);
+
+            if(verificaGPS()){
+                Intent i = new Intent(this, MapsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("emailOrigem", (this.email));
+                i.putExtras(bundle);
+                startActivity(i);
+            }else{
+                Toast.makeText(MainActivity.this, "Ative o GPS para utilizar o Mapa", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (id == R.id.nav_sair) {
             finish();

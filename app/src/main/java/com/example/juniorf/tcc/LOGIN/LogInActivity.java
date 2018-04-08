@@ -10,12 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
-
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.juniorf.tcc.MainActivity;
 import com.example.juniorf.tcc.R;
 import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
 import com.example.juniorf.tcc.CONSTANTS.Codes;
+import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -79,6 +84,26 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        
+        int id = item.getItemId();
+
+       
+        if(id == R.id.action_tutorial){
+            Intent i = new Intent(this, TutorialActivity.class);
+            startActivity(i);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void logout(View view){
