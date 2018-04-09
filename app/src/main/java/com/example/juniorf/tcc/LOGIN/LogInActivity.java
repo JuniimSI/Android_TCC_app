@@ -88,7 +88,7 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 

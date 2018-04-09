@@ -15,9 +15,20 @@
         android:id="@+id/tvLocality"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textAppearance="@style/AppIntroDefaultHeading"
         android:textColorHighlight="@color/background" />
 
+
+    <TextView
+        android:id="@+id/tvHorario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/AppIntroDefaultHeading"
+        android:textColorHighlight="@color/background"
+        android:textSize="24sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"

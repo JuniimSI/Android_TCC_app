@@ -154,7 +154,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(c, "Erro= "+error, Toast.LENGTH_SHORT).show();
+                UtilMethods.error(getApplicationContext());
             }
         })
 
@@ -218,7 +218,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(DetalhesActivity.this, "Erro= "+error, Toast.LENGTH_SHORT).show();
+                UtilMethods.error(getApplicationContext());
             }
         })
 
@@ -287,7 +287,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(DetalhesActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
-                    error();
+                    //error();
                 }
             });
 
@@ -312,7 +312,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         detalhes[0] = person.getString("detalhes");
                         detalhes[1] = person.getString("horario_funcionamento");
-                        Toast.makeText(DetalhesActivity.this, "kkkk ta certo?"+detalhes[0], Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
                             builder.setTitle("Detalhes");
                             builder.setMessage(detalhes[0] + "\n\nHorário de funcionamento: \n\n" + detalhes[1]);
@@ -326,7 +325,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         builder.show();
                     }
                 }catch (JSONException e) {
-                    Toast.makeText(DetalhesActivity.this, "k"+response, Toast.LENGTH_SHORT).show();
                     Log.d("No", response);
                     error();
                     e.printStackTrace();

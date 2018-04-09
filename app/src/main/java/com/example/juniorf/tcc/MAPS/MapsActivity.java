@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
+import java.lang.Runnable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-
+import android.os.Handler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +110,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     ////////URL
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
+    private String urlJsonDetailsIdLocation = "http://grainmapey.pe.hu/GranMapey/find_details_by_id_location.php";
+
 
 
     List<String> Languages = new ArrayList<String>();
@@ -586,13 +589,65 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                 @Override
                 public View getInfoContents(final Marker marker) {
+
+                    ///Colocar aqui
                     View view = getLayoutInflater().inflate(R.layout.info_window, null);
                     TextView txLocality = (TextView) view.findViewById(R.id.tvLocality);
+                    final TextView txHorario = (TextView) view.findViewById(R.id.tvHorario);
+
                     ImageView imageInfoWindow = (ImageView) view.findViewById(R.id.imageInfoWindow);
                     imageInfoWindow.setImageResource(getResources().getIdentifier(
                             tipoz, "drawable", getPackageName()));
                     LatLng ll = marker.getPosition();
                     txLocality.setText(marker.getTitle());
+
+                    ///if(marker.do google, faz no google )
+                    // else { faz isso ai}
+                    final String[] detalhes = new String[1];
+                        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+                        StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+marker.getSnippet(), new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    if (response.startsWith("ï»¿")) { response = response.substring(3); }
+                                    JSONArray jsonArray = new JSONArray(response);
+                                    detalhes[0] = new String();
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject person = (JSONObject) jsonArray.get(i);
+                                        detalhes[0] = person.getString("horario_funcionamento");
+                                        Handler handler = new Handler();
+                                        handler.post(new Runnable() {
+                                            public void run() {
+                                                txHorario.setText(detalhes[0]);
+                                            }
+                                        });
+                                        
+                                    }
+                                    Toast.makeText(getApplicationContext(), ""+detalhes[0], Toast.LENGTH_SHORT).show();
+                                }catch (JSONException e) {
+                                    UtilMethods.error(getApplicationContext());
+                                    e.printStackTrace();
+                                }
+                                txHorario.setText(detalhes[0]);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                UtilMethods.error(getApplicationContext());
+                            }
+                        })
+                        {
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> parameters = new HashMap<String , String>();
+                                parameters.put("id", (marker.getSnippet()));
+                                return parameters;
+                            }
+                        };
+                        int socketTimeout = 30000;//30 seconds - change to what you want
+                        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                        request.setRetryPolicy(policy);
+                        AppController.getInstance().addToRequestQueue(request);
+
                     
                     return view;
                 }
@@ -622,15 +677,11 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     emailz[0] = person.getString("email");
 
                                     emailDestinos = emailz[0];
-                                     Toast.makeText(MapsActivity.this, "iniStartDrag"+marker.getSnippet()+"+"+emailDestinos, Toast.LENGTH_SHORT).show();
-
                                         if(email==null){
                                             first = marker;
                                         } if(!email.equals(emailDestinos)){
                                             first = marker;
                                         }
-
-
                                 }
                             }catch (JSONException e) {
                                 UtilMethods.error(getApplicationContext());
