@@ -1,0 +1,86 @@
+Criar Mapa
+Criar Ponto  De Interesse
+Criar imagens para tutorial button, menu drawer background, icon do marker e iniciar mapa
+Criar todas imagens para a tela de Tutorial
+Realizar Login com Google
+
+Desenhar Rota entre Pontos
+Exibir InfoWindow
+CRUD das Mensagens
+Colocar Barra Superior na Tela do Mapa
+Colocar Respostas nas Mensagens
+
+Como colocar nomes dos pontos do google nos markers?
+Atualizar ListView com Mensagens
+Colocar o tratamento de permisãao de GPS
+Colocar permissão de proprietário ao editar e excluir mensagem e resposta
+Colocar permissão para inserir mensagem, só se estiver logado
+
+Obter detalhes gerais do ponto do servidor PHP
+So inserir ponto se Gps Ligado
+Retirar a função de toque simples no mapa
+Configurar os Progress Component
+Realizar update no mapa ao inserir um ponto
+
+Atualizar dados dos intents toda vez que os dados da tela do mapa for atualizada
+Exibir Toast quando não houver Markers
+Arrastar marker para edição de ponto
+Limpar Rota após clicar no mapa
+Corrigir Login
+
+Tratar Erros
+Tratar quando não insere tipo na inserção de ponto de interesse
+Melhorar balão da InfoWindow
+Melhorar layout da tela de Login
+Melhorar layout da tela de Detalhes
+
+Melhorar Interface do Insert Location
+Verificar google Details
+Verificar delete da mensagem com respostas nos markers do google
+Validar telefone com somente numeros
+Ajeitar Imagem do Perfil das mensagens
+
+Ajeitar  email para mensagem dos marker do google
+Ajeitar Erros
+Ajeitar Detalhes ActionBar
+Ajeitar position e adapter das mensagens
+Ajeitar layout da Tela Detalhes
+
+Corrigir Login
+Corrigir editar e excluir ponto
+Corrigir hint do insertLocation
+Corrigir o tipo evento
+Inserir botão de detalhes do marker proprietario na tela de detalhes, e adicionar atributo de detalhes no MyLocation
+
+Trocar no texto TCC, de visualizar distancia para gerar rota
+Implementar a requisição de detalhes ao google e ao servidor PHP
+Mostrar no Insert Location quando estou inserindo um novo ponto com um novo tipo
+Colocar permissão para usar o Botão GoToMyLocation somente se o Gps estiver ligado
+Colocar seta de voltar nas activitys
+
+Colocar para pesquisar somente se tiver internet
+Colocar Imagem na tela de Detalhes
+Colocar os componentes extras na tela de detalhes
+Colocar Horario de Funcionamento no Ponto de Interesse
+Colocar o botão de menu para ir pra tela de tutorial na tela de detalhes
+
+Colocar o botão de menu para ir pra tela de tutorial na tela de login
+Colocar as imagens criadas em suas localizações
+Colocar os tipos dinâmicos
+Colocar os tipos em ordem alfabetica
+Colocar condição de Gps no item do mapa do menu drawer
+
+Colocar horario de funcionamento no card que mostra no mapa (infoWindow)
+Colocar todas urls nos CODES INTERFACE
+Verficar tipo criado com tipo do location quando adiciona o tipo no insert location
+Atualizar Spinner de Tipos após inserção
+Atualizar diagrama de casos de uso
+
+Acrescentar Sublime Text e Mega.nz nas tecnologias usadas no Tcc Texto
+Ver as telas no Tcc Texto
+Completar a tela de Tutorial
+Remover todos Toast’s desnecessários e Logs
+Realizar Upload  da aplicação
+Disponibilizar a aplicação para os futuros avaliadores
+
+
