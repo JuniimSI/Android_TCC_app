@@ -281,9 +281,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurante)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurante)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurante)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurante)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("bank")){
             if(lista.size() == 0){
@@ -293,9 +293,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.banco)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.banco)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.banco)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.banco)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         } else if(type.equals("bar")){
             if(lista.size() == 0){
@@ -305,9 +305,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.bar)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.bar)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.bar)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.bar)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("car_wash")){
             if(lista.size() == 0){
@@ -317,9 +317,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.lavajato)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.lavajato)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.lavajato)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.lavajato)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("museum")){
             if(lista.size() == 0){
@@ -329,9 +329,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.museum)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.museum)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.museum)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.museum)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("gas_location")){
             if(lista.size() == 0){
@@ -341,9 +341,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.posto_gasolina)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.posto_gasolina)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.posto_gasolina)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.posto_gasolina)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("car_repair")){
             if(lista.size() == 0){
@@ -353,9 +353,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.oficina)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.oficina)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.oficina)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.oficina)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         } else if(type.equals("troca")){
             if(lista.size() == 0){
@@ -365,9 +365,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.troca)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.troca)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.troca)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.troca)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
         else if(type.equals("evento")){
@@ -379,9 +379,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.eventos)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.eventos)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.eventos)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.eventos)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("venda")){
             if(lista.size() == 0){
@@ -391,9 +391,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.venda)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.venda)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.venda)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.venda)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }else if(type.equals("hospital")){
             if(lista.size() == 0){
@@ -404,9 +404,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital_posto)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital_posto)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital_posto)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital_posto)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
         else {
@@ -414,9 +414,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             for (int i = 0; i < lista.size(); i++) {
                 LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
                 if(lista.get(i).getId_reference()!=null)
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(lista.get(i).getId_reference()));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
                 else
-                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()).snippet(String.valueOf(lista.get(i).getId())));
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
     }
