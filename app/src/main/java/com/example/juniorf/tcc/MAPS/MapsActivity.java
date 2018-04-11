@@ -1084,7 +1084,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     public void serviceSearch(final String type){
-        Toast.makeText(MapsActivity.this, "wbserv  "+type, Toast.LENGTH_SHORT).show();
         showProgressPontos();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/show_location_type.php", new Response.Listener<String>() {
@@ -1102,6 +1101,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         String lng = person.getString("Lng");
                         String tipo = person.getString("Tipo");
                         String email = person.getString("Email");
+                        String horario = person.getString("Horario_Funcionamento");
                         myLocation.setId(Integer.parseInt(id));
                         myLocation.setTipo(tipo);
                         myLocation.setNome(nome);
@@ -1109,6 +1109,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         myLocation.setTelefone(telefone);
                         myLocation.setLat(Double.parseDouble(lat));
                         myLocation.setLng(Double.parseDouble(lng));
+                        myLocation.setHorarioFuncionamento(horario);
                         lista.add(myLocation);
                     }
                     drawMarkers(type);
@@ -1160,6 +1161,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     myLocation.setId_reference(person.getString("place_id"));
                                     myLocation.setLat(Double.parseDouble(person.getJSONObject("geometry").getJSONObject("location").getString("lat")));
                                     myLocation.setLng(Double.parseDouble(person.getJSONObject("geometry").getJSONObject("location").getString("lng")));
+                                    String aberto = "";
+                                    if(person.getJSONObject("opening_hours").getBoolean("open_now") == false){
+                                        aberto = "Fechado";
+                                    }else{
+                                        aberto = "Aberto";
+                                    }
+                                    myLocation.setHorarioFuncionamento(aberto);
                                     lista.add(myLocation);
                                 }
                                 hideProgressPontos();
