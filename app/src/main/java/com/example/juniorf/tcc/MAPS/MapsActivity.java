@@ -704,7 +704,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
                     request.setRetryPolicy(policy);
                     AppController.getInstance().addToRequestQueue(request);
-
             }
 
             @Override
