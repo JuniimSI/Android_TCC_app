@@ -71,6 +71,7 @@ Colocar os tipos em ordem alfabetica
 Colocar condição de Gps no item do mapa do menu drawer
 
 Colocar horario de funcionamento no card que mostra no mapa (infoWindow)
+Colocar pra receber todos os dados incluindo horario na hora do search
 Colocar todas urls nos CODES INTERFACE
 Verficar tipo criado com tipo do location quando adiciona o tipo no insert location
 Atualizar Spinner de Tipos após inserção
