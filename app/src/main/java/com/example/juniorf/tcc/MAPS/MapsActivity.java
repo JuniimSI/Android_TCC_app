@@ -620,8 +620,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                             public void run() {
                                                 txHorario.setText(detalhes[0]);
                                             }
-                                        });
-                                        
+                                        });    
                                     }
                                     Toast.makeText(getApplicationContext(), ""+detalhes[0], Toast.LENGTH_SHORT).show();
                                 }catch (JSONException e) {
