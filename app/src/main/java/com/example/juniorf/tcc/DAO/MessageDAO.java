@@ -91,7 +91,6 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
     
 
     public void insert(final Mensagem location, final Context t) {
-            //  showpDialog();
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonInsertLocation, new Response.Listener<String>() {
             @Override
