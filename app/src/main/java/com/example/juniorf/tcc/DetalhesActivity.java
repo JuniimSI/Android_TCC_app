@@ -154,7 +154,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.error(getApplicationContext());
+                error(getApplicationContext());
             }
         })
 
@@ -210,7 +210,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
 		            respostas.put(m, answers);
                 } catch (JSONException e1) {
-                    UtilMethods.error(getApplicationContext());
+                    error(getApplicationContext());
                     e1.printStackTrace();
                 }
             }
@@ -218,7 +218,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.error(getApplicationContext());
+                error(getApplicationContext());
             }
         })
 
@@ -740,14 +740,14 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
                 }
                 catch (JSONException e) {
-                    UtilMethods.error(getApplicationContext());
+                    error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.error(getApplicationContext());
+                error(getApplicationContext());
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         })
@@ -986,5 +986,20 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+     public static void error(Context c){
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Oops, uma falha aconteceu...");
+        builder.setMessage("Tente novamente mais tarde");
+        builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
+        
+        @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        
+        builder.show();
     }
 }
