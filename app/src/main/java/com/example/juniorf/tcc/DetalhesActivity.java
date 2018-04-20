@@ -154,7 +154,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                error(getApplicationContext());
+                UtilMethods.errorDialog(getApplicationContext());
             }
         })
 
@@ -210,7 +210,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
 		            respostas.put(m, answers);
                 } catch (JSONException e1) {
-                    error(getApplicationContext());
+                    UtilMethods.errorDialog(getApplicationContext());
                     e1.printStackTrace();
                 }
             }
@@ -218,7 +218,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                error(getApplicationContext());
+                UtilMethods.errorDialog(getApplicationContext());
             }
         })
 
@@ -270,7 +270,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                     builder.setTitle("Detalhes");
                                     builder.setMessage(det);
                                     builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
-                                    @Override
+                                    @Override 
                                     public void onClick(DialogInterface dialog, int id) {
                                        dialog.cancel();
 
@@ -279,7 +279,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                 builder.show();
                            
                             } catch (JSONException e) {
-                                error();
+                                UtilMethods.errorDialog(getApplicationContext());
                                 e.printStackTrace();
                             }
                         }
@@ -287,7 +287,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(DetalhesActivity.this, "Erro na requisição de detalhes!", Toast.LENGTH_SHORT).show();
-                    //error();
+                    //UtilMethods.errorDialog(getApplicationContext());
                 }
             });
 
@@ -326,7 +326,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
                 }catch (JSONException e) {
                     Log.d("No", response);
-                    error();
+                    UtilMethods.errorDialog(getApplicationContext());
                     e.printStackTrace();
                 }
             }
@@ -334,7 +334,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
-                error();
+                UtilMethods.errorDialog(getApplicationContext());
             }
         })
         {
@@ -740,14 +740,14 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
                 }
                 catch (JSONException e) {
-                    error(getApplicationContext());
+                    UtilMethods.errorDialog(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error(getApplicationContext());
+                UtilMethods.errorDialog(getApplicationContext());
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         })
@@ -988,7 +988,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
     }
 
-     public static void error(Context c){
+     public static void errorDialog(Context c){
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("Oops, uma falha aconteceu...");
         builder.setMessage("Tente novamente mais tarde");
