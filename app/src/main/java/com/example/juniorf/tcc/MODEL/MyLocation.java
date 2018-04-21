@@ -27,7 +27,10 @@ public class MyLocation {
     }
 
     public String getHorarioFuncionamento(){
-        return horario_funcionamento;
+        if(horario_funcionamento!= null)
+            return horario_funcionamento;
+        else
+            return "";
     }
 
     public void setHorarioFuncionamento(String horario){

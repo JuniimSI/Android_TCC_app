@@ -18,28 +18,32 @@
             app:civ_border_color="@color/branco"
             app:civ_border_width="2dp"
             app:srcCompat="@mipmap/ic_user" />
+
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/arredondado"
         android:orientation="vertical"
-        android:paddingLeft="3dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
             android:text="Email"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/branco" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Message"
-            android:textColor="@color/branco" />
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
 </LinearLayout>

@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.juniorf.tcc.DetalhesActivity">
-
+]<!--
     <LinearLayout
         android:id="@+id/rodape"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#22b497"
+        android:background="@drawable/gradient_color"
         android:gravity="center_vertical"
         android:padding="5dp"
         android:shape="oval">
 
         <LinearLayout
-            android:layout_above="@id/rodape"
             android:id="@+id/second"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/rodape"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="2">
@@ -30,9 +30,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:focusable="false"
                 android:hint="Digite sua mensagem..."
-                android:inputType="textPersonName" />
+                android:inputType="textCapSentences"
+                android:textColor="@color/background" />
 
             <Button
                 android:id="@+id/btnSend"
@@ -42,14 +42,17 @@
                 android:background="@mipmap/ic_enviar" />
         </LinearLayout>
     </LinearLayout>
+    android:layout_above="@id/rodape
+-->
     <include
         layout="@layout/app_bar_detalhes"
-        android:layout_above="@id/rodape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+         />
 
 
 

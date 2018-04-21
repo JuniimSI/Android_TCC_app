@@ -34,9 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:clickable="true"
                 android:minWidth="10dp"
-                android:paddingLeft="6dp"
                 app:backgroundTint="@color/blue"
                 app:srcCompat="@android:drawable/ic_menu_view" />
 
@@ -46,6 +46,7 @@
                 android:layout_height="match_parent"
                 android:foregroundGravity="center_vertical"
                 android:orientation="horizontal"
+                android:paddingLeft="7dp"
                 android:paddingTop="1dp">
 
                 <LinearLayout
@@ -86,14 +87,16 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="1">
 
-            <LinearLayout
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -101,15 +104,31 @@
                 android:paddingRight="4dp"
                 android:paddingTop="5dp">
 
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/insertMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="false"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/blue"
+                    android:clickable="true"
+                    android:foregroundGravity="right"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="4dp"
+                    app:backgroundTint="@color/blue"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
+
                 <ExpandableListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.8" />
-            </LinearLayout>
+            </RelativeLayout>
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

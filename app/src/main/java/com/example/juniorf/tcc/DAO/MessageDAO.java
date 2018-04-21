@@ -96,6 +96,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onResponse(String response) {
                 Log.i(Tag, response+"a");
+                Toast.makeText(t, "Menssagem inserida com sucesso!", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 

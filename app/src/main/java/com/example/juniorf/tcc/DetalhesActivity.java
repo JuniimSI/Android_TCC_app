@@ -70,6 +70,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     private TextView telefoneText;
     private TextView ratingText;
     private FloatingActionButton floatingActionButton;
+    private FloatingActionButton floatingInsertMessage;
     private EditText message;
     private ExpandableListView listView;
     private Button btnSend;
@@ -154,7 +155,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.errorDialog(getApplicationContext());
+                UtilMethods.error(getApplicationContext());
             }
         })
 
@@ -210,7 +211,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
 		            respostas.put(m, answers);
                 } catch (JSONException e1) {
-                    UtilMethods.errorDialog(getApplicationContext());
+                    UtilMethods.error(getApplicationContext());
                     e1.printStackTrace();
                 }
             }
@@ -218,7 +219,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.errorDialog(getApplicationContext());
+                UtilMethods.error(getApplicationContext());
             }
         })
 
@@ -246,40 +247,57 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         @Override
                         public void onResponse(String response) {
                             try {
+                                String situation = "";
 
                                 JSONObject jo = new JSONObject(response);
                                 String c = jo.getString("result");
                                 JSONObject res = new JSONObject(c);
-                                 
-                                retorno.setAddress(res.getString("formatted_address"));
-                                retorno.setWebSite(res.getString("website"));
-                                retorno.setOpenNow(Boolean.parseBoolean(res.getJSONObject("opening_hours").getString("open_now")));
-                                String situation = "";
-                                if(retorno.getOpenNow())
-                                    situation = "Aberto";
-                                else
-                                    situation = "Fechado";
-            
+                                if(jo.has("website")){
+                                    String site = res.getString("website");
+                                    if(site!=null)
+                                        retorno.setWebSite(site);
+                                    else
+                                        retorno.setWebSite("Site Indisponível");
+                                }else
+                                        retorno.setWebSite("Site Indisponível");
+
+                                if(jo.has("formatted_address")){
+
+                                    String formated = res.getString("formatted_address");
+                                    if(formated != null)
+                                        retorno.setAddress(formated);
+                                    else
+                                        retorno.setAddress("Endereço Indisponível");
+                               }else
+                                        retorno.setAddress("Endereço Indisponível");
+                               
+
+                                if(jo.has("opening_hours")){
+                                        if(jo.getJSONObject("opening_hours").getBoolean("open_now") == true)
+                                            situation = "Aberto";        
+                                        else
+                                            situation = "Fechado";        
+                                }else
+                                    situation = "Horario Indisponível";
 
                                 StringBuilder det = new StringBuilder();
                                 det.append(retorno.getAddress() + "\n" + "\n" +
-                                        retorno.getWebSite() + "\n" + "\n" +
-                                       
-                                        situation );
-                                AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
-                                    builder.setTitle("Detalhes");
-                                    builder.setMessage(det);
-                                    builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
-                                    @Override 
-                                    public void onClick(DialogInterface dialog, int id) {
-                                       dialog.cancel();
+                                        retorno.getWebSite() + "\n" + "\n" + situation);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
+                                        builder.setTitle("Detalhes");
+                                        builder.setMessage(det);
+                                        builder.setPositiveButton("OK, voltar!", new DialogInterface.OnClickListener() {
+                                        @Override 
+                                        public void onClick(DialogInterface dialog, int id) {
+                                           dialog.cancel();
 
-                                    }
-                                });
-                                builder.show();
+                                        }
+                                    });
+                                    builder.show();
                            
                             } catch (JSONException e) {
-                                UtilMethods.errorDialog(getApplicationContext());
+                                Log.e("TAAAG", Log.getStackTraceString(e));
+                                UtilMethods.error(getApplicationContext());
                                 e.printStackTrace();
                             }
                         }
@@ -302,6 +320,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+placeId, new Response.Listener<String>() {
             @Override
+
             public void onResponse(String response) {
                 try {
                     if (response.startsWith("ï»¿")) { response = response.substring(3); }
@@ -326,7 +345,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
                 }catch (JSONException e) {
                     Log.d("No", response);
-                    UtilMethods.errorDialog(getApplicationContext());
+                    UtilMethods.error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
@@ -334,7 +353,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
-                UtilMethods.errorDialog(getApplicationContext());
+                UtilMethods.error(getApplicationContext());
             }
         })
         {
@@ -383,6 +402,54 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        floatingInsertMessage = (FloatingActionButton) findViewById(R.id.insertMessage);
+        floatingInsertMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                LayoutInflater layoutInflater = LayoutInflater.from(DetalhesActivity.this);
+                View pront = layoutInflater.inflate(R.layout.insert_message, null);
+                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(DetalhesActivity.this);
+                alertDialogBuilder.setView(pront);
+
+                final EditText nome = (EditText) pront.findViewById(R.id.textAnswer);
+
+                alertDialogBuilder.setCancelable(false).setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        final String[] n = {""};
+                        n[0] = nome.getText().toString();
+                        if(emailOrigem!=null && !emailOrigem.equals("null")) {
+                            Mensagem nova = new Mensagem();
+                            String text = n[0].toString();
+                            nova.setTexto(text);
+                            nova.setEmailOrigem(emailOrigem);
+                            if(!existArroba(placeId))
+                                nova.setEmailDestino(referenceId);
+                            else
+                                nova.setEmailDestino(emailDestino);
+                            nova.setLocal(localToken);
+                            MessageDAO messageDAO = new MessageDAO(getApplicationContext());
+                            messageDAO.insert(nova, getApplicationContext());
+                            updateActivity();
+                        }else{
+                            Toast.makeText(DetalhesActivity.this, "Faça o login.", Toast.LENGTH_SHORT).show();
+                        }
+                        
+                    } 
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        return;
+                    }
+                });
+                android.app.AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+
+            } 
+
+        });
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.detailsFloating);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -443,7 +510,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         localToken = bundle.getString("local");
 
         //Dados da activity
-        message = (EditText) findViewById(R.id.etMessage);
+        //message = (EditText) findViewById(R.id.etMessage);
         listView = (ExpandableListView) findViewById(R.id.listView);
         nomeText = (TextView) findViewById(R.id.nomeText);
         telefoneText = (TextView) findViewById(R.id.telefoneText);
@@ -472,31 +539,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 return false;
             }
 
-        });
-        btnSend = (Button) findViewById(R.id.btnSend);
-
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(emailOrigem!=null && !emailOrigem.equals("null")) {
-                    Mensagem n = new Mensagem();
-                    String text = message.getText().toString();
-                    n.setTexto(text);
-                    n.setEmailOrigem(emailOrigem);
-                    if(!existArroba(placeId))
-                        n.setEmailDestino(referenceId);
-                    else
-                        n.setEmailDestino(emailDestino);
-                    n.setLocal(localToken);
-                    MessageDAO messageDAO = new MessageDAO(getApplicationContext());
-                    messageDAO.insert(n, getApplicationContext());
-                    Toast.makeText(DetalhesActivity.this, "Menssagem inserida com sucesso!", Toast.LENGTH_SHORT).show();
-                    updateActivity();
-                }else{
-                    Toast.makeText(DetalhesActivity.this, "Faça o login.", Toast.LENGTH_SHORT).show();
-                }
-            }
         });
 
         //////////////////GOOGLE API//////////////////
@@ -735,19 +777,18 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                     }
                     nomeText.setText(""+myLocation[0].getNome());
                     telefoneText.setText("Telefone: "+myLocation[0].getTelefone());
-                    Toast.makeText(DetalhesActivity.this, myLocation[0].getTipo(), Toast.LENGTH_SHORT).show();
                     ratingText.setText("Tipo: "+myLocation[0].getTipo());
 
                 }
                 catch (JSONException e) {
-                    UtilMethods.errorDialog(getApplicationContext());
+                    UtilMethods.error(getApplicationContext());
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                UtilMethods.errorDialog(getApplicationContext());
+                UtilMethods.error(getApplicationContext());
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         })
