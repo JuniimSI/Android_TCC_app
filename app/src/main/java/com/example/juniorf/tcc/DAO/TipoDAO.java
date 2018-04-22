@@ -50,6 +50,7 @@ public class TipoDAO extends  AbstractDAO<Tipo> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
         {
@@ -81,12 +82,14 @@ public class TipoDAO extends  AbstractDAO<Tipo> {
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
+                    UtilMethods.error(t);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
+                UtilMethods.error(t);
             }
         });
 

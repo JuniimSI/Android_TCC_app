@@ -71,11 +71,9 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                             JSONObject email = (JSONObject) response.get(0);
 
                             ret = email.getString("email").toString();
-                            Toast.makeText(t, "Ret1"+ret, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Toast.makeText(t, "Ret2"+ret, Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener()
@@ -107,12 +105,10 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         email[0] = person.getString("email");
-                       Toast.makeText(t, "kkkk ta certo?"+email[0], Toast.LENGTH_SHORT).show();
-
                     }
                 }catch (JSONException e) {
-                    Toast.makeText(t, "k"+response, Toast.LENGTH_SHORT).show();
                     Log.d("No", response);
+                    UtilMethods.error(t);
                     e.printStackTrace();
                 }
             }
@@ -120,6 +116,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
+                UtilMethods.error(t);
             }
         })
         {
@@ -137,7 +134,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
         return email[0];
     }
     
-    public MyLocation getLocationById(final long id, Context t){
+    public MyLocation getLocationById(final long id, final Context t){
         detalhes = new ProgressDialog(t);
         detalhes.setMessage("Deletando marker");
         detalhes.setCancelable(true);
@@ -170,12 +167,14 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                   //  detalhes.dismiss();
                 }
                 catch (JSONException e) {
+                    UtilMethods.error(t);
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                UtilMethods.error(t);
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         })
@@ -193,7 +192,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
         return myLocation[0];
     }
 
-    public void insert(final MyLocation location, Context t) {
+    public void insert(final MyLocation location, final Context t) {
 //        showpDialog();
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonInsertLocation, new Response.Listener<String>() {
@@ -206,6 +205,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
 
@@ -236,7 +236,6 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonUpdateLocation, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                       Toast.makeText(t, "UPDATE"+response, Toast.LENGTH_SHORT).show();
 
             }
         },  new Response.ErrorListener(){
@@ -244,8 +243,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
-                                       Toast.makeText(t, "UPDATE ERRO"+error, Toast.LENGTH_SHORT).show();
-
+                UtilMethods.error(t);
             }
         })
         {
@@ -276,6 +274,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(applicationContext);
             }
         })
         {

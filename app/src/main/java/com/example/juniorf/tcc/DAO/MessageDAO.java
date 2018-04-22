@@ -121,7 +121,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    public void update(final int id , final String msg, Context t){
+    public void update(final int id , final String msg, final Context t){
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonUpdateMessage, new Response.Listener<String>() {
             @Override
@@ -133,6 +133,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
         {
@@ -197,7 +198,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         StringRequest request = new StringRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/delete_message.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(t, "kk "+response, Toast.LENGTH_SHORT).show();
+
             }
         },  new Response.ErrorListener(){
 
