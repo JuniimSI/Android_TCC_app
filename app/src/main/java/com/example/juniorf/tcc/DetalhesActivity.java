@@ -252,7 +252,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                 JSONObject jo = new JSONObject(response);
                                 String c = jo.getString("result");
                                 JSONObject res = new JSONObject(c);
-                                if(jo.has("website")){
+                                if(res.has("website")){
                                     String site = res.getString("website");
                                     if(site!=null)
                                         retorno.setWebSite(site);
@@ -261,7 +261,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                 }else
                                         retorno.setWebSite("Site Indisponível");
 
-                                if(jo.has("formatted_address")){
+                                if(res.has("formatted_address")){
 
                                     String formated = res.getString("formatted_address");
                                     if(formated != null)
@@ -272,8 +272,8 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                         retorno.setAddress("Endereço Indisponível");
                                
 
-                                if(jo.has("opening_hours")){
-                                        if(jo.getJSONObject("opening_hours").getBoolean("open_now") == true)
+                                if(res.has("opening_hours")){
+                                        if(res.getJSONObject("opening_hours").getBoolean("open_now") == true)
                                             situation = "Aberto";        
                                         else
                                             situation = "Fechado";        
