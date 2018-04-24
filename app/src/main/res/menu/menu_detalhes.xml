@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete"
-        android:icon="@drawable/lixeirinha"
+        android:icon="@mipmap/ic_lixeirinha"
         android:title="Deletar"
         app:showAsAction="always" />
 </menu>

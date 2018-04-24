@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity
 
             GoogleSignInAccount account = result.getSignInAccount();
             if(account.getDisplayName()!=null)
-                Toast.makeText(this, "Hello, "+account.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Olá, "+account.getDisplayName(), Toast.LENGTH_SHORT).show();
             email = (account.getEmail());
             
         }else{
