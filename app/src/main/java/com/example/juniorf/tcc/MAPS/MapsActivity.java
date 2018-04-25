@@ -149,7 +149,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         });
-
+	int socketTimeout = 10000;//30 seconds - change to what you want
+	RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 		DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        req.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(req);
     }
 
@@ -198,7 +200,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
 
         ///Preenchendo as linguagens com os valores do banco
-        preencheSpinner();
+	if(isOnline(this))
+	        preencheSpinner();
+	else
+		Toast.makeText(this, "Verifique sua conexão e tente novamente. Para carregar a lista de Tipos", Toast.LENGTH_SHORT).show();
 
 
         //Método do Spinner para capturar o item selecionado
