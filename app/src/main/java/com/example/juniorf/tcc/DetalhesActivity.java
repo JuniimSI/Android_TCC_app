@@ -238,6 +238,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public DetalhesGoogle requestDetailsGoogle(){
+	    progressDetails.show();
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeId+"&key=AIzaSyDzmS5_MB0psxCMWjPiLkJMda9VEJBzHQw";
             final DetalhesGoogle retorno = new DetalhesGoogle();
@@ -294,7 +295,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                         }
                                     });
                                     builder.show();
-                           
+                           	    progressDetails.dismiss();
                             } catch (JSONException e) {
                                 Log.e("TAAAG", Log.getStackTraceString(e));
                                 UtilMethods.error(getApplicationContext());
@@ -316,6 +317,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
     
 
     public void requestDetailsWebService(){
+	progressDetails.show();
         final String[] detalhes = new String[2];
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, urlJsonDetailsIdLocation+"?id="+placeId, new Response.Listener<String>() {
@@ -343,6 +345,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         });
                         builder.show();
                     }
+	    	    progressDetails.dismiss();
                 }catch (JSONException e) {
                     Log.d("No", response);
                     UtilMethods.error(getApplicationContext());
