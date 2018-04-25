@@ -178,7 +178,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
         progressType = new ProgressDialog(this);
         progressType.setMessage("Aguardando receber Tipos...");
-        progressType.setCancelable(true);
+        progressType.setCancelable(false);
 
         progressInsert = new ProgressDialog(this);
         progressInsert.setMessage("Inserindo novo ponto...");
