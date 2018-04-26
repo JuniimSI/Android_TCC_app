@@ -1,6 +1,7 @@
 package com.example.juniorf.tcc.MAPS;
 
 import android.Manifest;
+import android.app.TimePickerDialog;
 import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,7 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
-import java.lang.Runnable;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.LinearLayout;
 
@@ -57,7 +59,6 @@ import com.example.juniorf.tcc.MODEL.Tipo;
 import com.example.juniorf.tcc.R;
 import com.example.juniorf.tcc.TUTORIAL.TutorialActivity;
 import com.example.juniorf.tcc.CONSTANTS.UtilMethods;
-import com.example.juniorf.tcc.CONSTANTS.Codes;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -72,15 +73,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import android.os.Handler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.util.Log;
 
 import static android.graphics.Color.BLUE;
 
@@ -113,6 +114,13 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     private String urlJsonEmailLocation = "http://grainmapey.pe.hu/GranMapey/find_email_location_by_id.php?id=";
     private String urlJsonDetailsIdLocation = "http://grainmapey.pe.hu/GranMapey/find_details_by_id_location.php";
 
+    ////////Calendar e time
+    public TimePickerDialog timePickerDialog;
+    public Calendar dateTime;
+    public int currentHour;
+    public int currentMinute;
+    public EditText de;
+    public EditText ate;
 
 
     List<String> Languages = new ArrayList<String>();
@@ -155,6 +163,12 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         AppController.getInstance().addToRequestQueue(req);
     }
 
+
+    public void updateTextTime(int hora1, int minuto1, int hora2, int minuto2){
+        de.setText(hora1+ ":"+minuto1);
+        ate.setText(hora2+":"+minuto2);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +185,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             }
         });
 
-        
+
+
         ///////////////////Progress////////////////////////
         progressRota = new ProgressDialog(this);
         progressRota.setMessage("Aguardando calcular a rota...");
@@ -740,13 +755,56 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     final EditText nome = (EditText) pront.findViewById(R.id.nomeEditText);
                     final EditText telefone = (EditText) pront.findViewById(R.id.telefoneEditText);
                     final EditText detalhes = (EditText) pront.findViewById(R.id.detalhesEditText);
-                    final EditText horario = (EditText) pront.findViewById(R.id.horariosEditText);
+                    final EditText de = (EditText) pront.findViewById(R.id.de);
+                    final EditText ate = (EditText) pront.findViewById(R.id.ate);
                     final LinearLayout llspinner = (LinearLayout) pront.findViewById(R.id.llspinner);
                     final LinearLayout lltipocriado = (LinearLayout) pront.findViewById(R.id.lltipocriado);
                     final TextView tipoCriado = (TextView) pront.findViewById(R.id.tipoCriadoId);
                     telefone.setTransformationMethod(null);
                     final Spinner tipo = (Spinner) pront.findViewById(R.id.spinner);
                     final String[] type = {""};
+
+
+                    ///////////////////Calendar e Time/////////////////
+
+
+                    de.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dateTime = Calendar.getInstance();
+                            currentHour = dateTime.get(Calendar.HOUR_OF_DAY);
+                            currentMinute = dateTime.get(Calendar.MINUTE);
+
+                            timePickerDialog = new TimePickerDialog(MapsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                    de.setText(String.format("%02d:%02d",i, i1));
+                                }
+                            }, currentHour, currentMinute, true);
+                            timePickerDialog.show();
+                        }
+
+                    });
+
+
+                    ate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dateTime = Calendar.getInstance();
+                            currentHour = dateTime.get(Calendar.HOUR_OF_DAY);
+                            currentMinute = dateTime.get(Calendar.MINUTE);
+
+                            timePickerDialog = new TimePickerDialog(MapsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                    ate.setText(String.format("%02d:%02d",i,i1));
+                                }
+                            }, currentHour, currentMinute, true);
+                            timePickerDialog.show();
+                        }
+
+                    });
+
 
                     FloatingActionButton insertTipoButton = (FloatingActionButton) pront.findViewById(R.id.insertTypeButton);
                     insertTipoButton.setOnClickListener(new View.OnClickListener() {
@@ -787,7 +845,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         }
                     });
 
-                    if(type[0] == ""){
+                    if(type[0].equals("")){
                         tipo.setAdapter(new TypesAdapter(MapsActivity.this, R.layout.spinner_item, Languages));
                         tipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
@@ -795,40 +853,40 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 type[0] = parent.getItemAtPosition(position).toString();
                                 if (position == 0)
                                     Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if(type[0] == "Tipos")
+                                else if(type[0].equals("Tipos"))
                                     Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if (type[0] == "Restaurante") {
+                                else if (type[0].equals("Restaurante")) {
                                     type[0] = ("restaurant");
                                     return;
-                                } else if (type[0] == "Banco") {
+                                } else if (type[0].equals("Banco")) {
                                     type[0] = ("bank");
                                     return;
-                                } else if (type[0] == "Bar") {
+                                } else if (type[0].equals("Bar")) {
                                     type[0] = ("bar");
                                     return;
-                                } else if (type[0] == "LavaJato") {
+                                } else if (type[0].equals("LavaJato")) {
                                     type[0] = ("car_wash");
                                     return;
                                 }
-                                else if (type[0] == "Evento") {
+                                else if (type[0].equals("Evento")) {
                                     adicionaMarkerGoogle("event");
                                     return;
-                                } else if (type[0] == "Oficina") {
+                                } else if (type[0].equals("Oficina")) {
                                     type[0] = ("car_repair");
                                     return;
-                                } else if (type[0] == "Venda") {
+                                } else if (type[0].equals("Venda")) {
                                     type[0] = ("venda");
                                     return;
-                                } else if (type[0] == "Troca") {
+                                } else if (type[0].equals("Troca")) {
                                     type[0] = ("troca");
                                     return;
-                                } else if (type[0] == "Hospital/Postos") {
+                                } else if (type[0].equals("Hospital/Postos")) {
                                     type[0] = ("hospital");
                                     return;
-                                } else if (type[0] == "Posto de Gasolina") {
+                                } else if (type[0].equals("Posto de Gasolina")) {
                                     type[0] = ("gas_station");
                                     return;
-                                } else if (type[0] == "Museus") {
+                                } else if (type[0].equals("Museus")) {
                                     type[0] = ("museum");
                                     return;
                                 } else {
@@ -850,7 +908,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             n[0] = nome.getText().toString();
                             n[1] = telefone.getText().toString();
                             n[2] = detalhes.getText().toString();
-                            n[3] = horario.getText().toString();
+                            n[3] = (de.getText().toString())+ " às "+(ate.getText().toString());
 
                             MyLocation location = new MyLocation();
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
@@ -873,39 +931,39 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
                             if(type[0]!=null) {
                                 eraseMarkers();
-                                if(type[0] == "Tipos")
+                                if(type[0].equals("Tipos"))
                                     Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if (type[0] == "Restaurante") {
+                                else if (type[0].equals("Restaurante")) {
                                     adicionaMarkerGoogle("restaurant");
                                     return;
-                                } else if (type[0] == "Banco") {
+                                } else if (type[0].equals("Banco")) {
                                    adicionaMarkerGoogle("bank");
                                     return;
-                                } else if (type[0] == "Bar") {
+                                } else if (type[0].equals("Bar")) {
                                    adicionaMarkerGoogle("bar");
                                     return;
-                                } else if (type[0] == "LavaJato") {
+                                } else if (type[0].equals("LavaJato")) {
                                    adicionaMarkerGoogle("car_wash");
                                     return;
-                                } else if (type[0] == "Evento") {
+                                } else if (type[0].equals("Evento")) {
                                     adicionaMarkerGoogle("event");
                                     return;
-                                } else if (type[0] == "Oficina") {
+                                } else if (type[0].equals("Oficina")) {
                                     adicionaMarkerGoogle("car_repair");
                                     return;
-                                } else if (type[0] == "Venda") {
+                                } else if (type[0].equals("Venda")) {
                                    adicionaMarkerGoogle("venda");
                                     return;
-                                } else if (type[0] == "Troca") {
+                                } else if (type[0].equals("Troca")) {
                                     adicionaMarkerGoogle("troca");
                                     return;
-                                } else if (type[0] == "Hospital/Postos") {
+                                } else if (type[0].equals("Hospital/Postos")) {
                                     adicionaMarkerGoogle("hospital");
                                     return;
-                                } else if (type[0] == "Posto de Gasolina") {
+                                } else if (type[0].equals("Posto de Gasolina")) {
                                     adicionaMarkerGoogle("gas_station");
                                     return;
-                                } else if (type[0] == "Museus") {
+                                } else if (type[0].equals("Museus")) {
                                     adicionaMarkerGoogle("museum");
                                     return;
                                 } else {

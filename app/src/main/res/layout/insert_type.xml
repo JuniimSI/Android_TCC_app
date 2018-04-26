@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/nome"
+        android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light"
         android:inputType="textPersonName"
         android:textColor="@color/branco"
         android:textColorLink="@color/blue" />

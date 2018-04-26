@@ -34,18 +34,21 @@
             android:ems="10"
             android:hint="@string/nome"
             android:inputType="textPersonName"
-            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+            android:textColor="@color/background"
+            android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light" />
 
         <EditText
             android:id="@+id/telefoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textColor="@color/background"
             android:hint="@string/telefone"
             android:inputType="numberPassword"
-            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+            android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light" />
 
         <EditText
+            android:textColor="@color/background"
             android:id="@+id/detalhesEditText"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -55,38 +58,81 @@
             android:maxLength="2000"
             android:maxLines="4"
             android:scrollHorizontally="false"
-            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+            android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light" />
 
-        <EditText
-            android:id="@+id/horariosEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:maxLines="2"
-            android:hint="00:00 - 00:00 (Horario de funcionamento)"
-            android:textColorHint="@color/wallet_dim_foreground_inverse_holo_dark" />
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
+
+            <EditText
+                android:id="@+id/de"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:hint="00:00"
+                android:textColor="@color/background"
+                android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:text="às"
+                android:textColor="@color/background"
+                android:textSize="24sp" />
+
+
+            <EditText
+                android:id="@+id/ate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:focusableInTouchMode="false"
+                android:hint="00:00"
+                android:textColor="@color/background"
+                android:textColorHint="@color/wallet_bright_foreground_disabled_holo_light"
+                android:textSize="25sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llspinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:minHeight="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.99" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/insertTypeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.01"
                 android:clickable="true"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp"
                 app:backgroundTint="@color/blue"
-                app:srcCompat="@android:drawable/stat_notify_more" />
+                app:srcCompat="@mipmap/ic_tipo" />
 
         </LinearLayout>
 
