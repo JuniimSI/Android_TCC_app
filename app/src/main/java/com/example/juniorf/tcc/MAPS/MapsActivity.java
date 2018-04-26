@@ -830,7 +830,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     type[0] = n[0];
                                     llspinner.setVisibility(View.GONE);
                                     lltipocriado.setVisibility(View.VISIBLE);
-                                    tipoCriado.setText(type[0]);
+                                    tipoCriado.setText("Tipo: "+type[0]);
 
                                 }
                             }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

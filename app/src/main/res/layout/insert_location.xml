@@ -88,7 +88,6 @@
                 android:textColor="@color/background"
                 android:textSize="24sp" />
 
-
             <EditText
                 android:id="@+id/ate"
                 android:layout_width="wrap_content"
@@ -143,12 +142,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <TextView
                 android:id="@+id/tipoCriadoId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:foregroundGravity="center_horizontal"
                 android:gravity="center"
                 android:text=""
