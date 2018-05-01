@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     /////////////////////////////////////////////////
     private GoogleApiClient client;
     private ProgressDialog pDialog;
+    private ProgressDialog lDialog;
     private List<String> lista;
     private GoogleApiClient googleApiClient;
     private String email;
@@ -103,6 +104,10 @@ public class MainActivity extends AppCompatActivity
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
+
+	lDialog = new ProgressDialog(this);
+	lDialog.setMessage("Aguarde...");
+	lDialog.setCancelable(true);
     }
 
     @Override
@@ -178,13 +183,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void logout(){
+	lDialog.show();
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
                 if(status.isSuccess()){
                     Toast.makeText(MainActivity.this, "Seção encerrada", Toast.LENGTH_SHORT).show();
                     email = null;
+		    lDialog.dismiss();
                 }else{
+		    lDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Tente Novamente", Toast.LENGTH_SHORT).show();
                 }
             }

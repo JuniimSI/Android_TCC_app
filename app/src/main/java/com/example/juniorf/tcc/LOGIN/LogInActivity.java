@@ -44,7 +44,6 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
     private TextView email2;
     private TextView texto;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +76,6 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
     }
 
     @Override
