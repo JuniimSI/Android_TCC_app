@@ -26,11 +26,11 @@ public class TutorialActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance("Detalhes e Mensagens", "Ao dar um clique longo sobre a janela de informações, você é redirecionado para a tela de detalhes do ponto seleconado", R.drawable.veja_tela_detalhes, Color.parseColor("#1F51B5")));
         addSlide(AppIntroFragment.newInstance("Detalhes profundos","Para obter os detalhes mais a fundos de cada ponto de interesse, clique no botão com o olhinho", R.drawable.veja_seus_detalhes, Color.parseColor("#1F51B5")));
         addSlide(AppIntroFragment.newInstance("Crie seus tipos", "Para criar seu tipo, você deve estar inserindo um ponto de interesse e clicar no botão ao lado da lista de tipos e preencher o formulário", R.drawable.insira_seu_tipo, Color.parseColor("#1F51B5")));
-        addSlide(AppIntroFragment.newInstance("Pesquise por Tipo", "Ao clicar, você tem acesso a todos os tipos já cadastrados na aplicação e pode obter resultados filtrados pelos tais tipos", R.drawable.screencriaponto, Color.parseColor("#5F51B5")));
+        addSlide(AppIntroFragment.newInstance("Pesquise por Tipo", "Ao clicar, você tem acesso a todos os tipos já cadastrados na aplicação e pode obter resultados filtrados pelos tais tipos", R.drawable.pesquise_por_tipo, Color.parseColor("#5F51B5")));
         addSlide(AppIntroFragment.newInstance("Ache-se", "Clique no botão para colocar a camera e o zoom em sua localização atual ", R.drawable.ache_seu_local, Color.parseColor("#5F51B5")));
         addSlide(AppIntroFragment.newInstance("Calcule rotas", "Clique em um ponto de interesse, visualize a janela de informações e clique sobre a janela para gerar a rota", R.drawable.gere_sua_rota, Color.parseColor("#2F51B5")));
         addSlide(AppIntroFragment.newInstance("Troque mensagens", "Para enviar uma mensagem, basta estar na tela de detalhes de um ponto, clicar no botão embaixo e escrever e enviar sua mensagem", R.drawable.insira_sua_mensagem, Color.parseColor("#3F51B5")));
-        addSlide(AppIntroFragment.newInstance("Edite, Apague e Responda", "Ao clicar e segurar sobre uma mensagem, surgirá este menu, com estas três operações, edição, delete e resposta", R.drawable.insira_sua_mensagem, Color.parseColor("#3F51B5")));
+        addSlide(AppIntroFragment.newInstance("Edite, Apague e Responda", "Ao clicar e segurar sobre uma mensagem, surgirá este menu, com estas três operações, edição, delete e resposta", R.drawable.mensagens_menu, Color.parseColor("#3F51B5")));
         addSlide(AppIntroFragment.newInstance("Menu lateral", "Utilize o menu para lhe levar aos componentes da aplicação", R.drawable.navegue_no_menu, Color.parseColor("#3F51B5")));
         addSlide(AppIntroFragment.newInstance("Dúvida?", "Em todas as telas contamos com este icone, o mesmo o trará de volta para a tela de tutorial, lhe dando todo o suporte necessario para uso da aplicação", R.drawable.tutorial, Color.parseColor("#4F51B5")));
 
@@ -52,8 +52,6 @@ public class TutorialActivity extends AppIntro {
 
     @Override
     public void onSlideChanged() {
-        //Toast.makeText(this, "changed", Toast.LENGTH_SHORT).show();
-
         super.onSlideChanged();
     }
 
