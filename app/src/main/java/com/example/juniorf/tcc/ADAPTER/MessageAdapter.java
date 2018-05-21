@@ -101,6 +101,28 @@ public class MessageAdapter extends BaseExpandableListAdapter {
         message.setText( getGroup(groupPosition).getTexto());
         imagem.setImageResource(R.mipmap.ic_user);
 
+        
+        ///If expanded
+        
+        if (isExpanded) {
+			email.setTypeface(null, Typeface.BOLD);
+			email.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+					R.drawable.ic_up, 0);
+		} else {
+			// If group is not expanded then change the text back into normal
+			// and change the icon
+ 
+			email.setTypeface(null, Typeface.NORMAL);
+			email.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+					R.drawable.ic_down, 0);
+		}
+        
+        
+        
+        
+        
+        
+        
         return convertView;
 
         //tvQtde.setText(String.valueOf(getChildrenCount(groupPosition)));
