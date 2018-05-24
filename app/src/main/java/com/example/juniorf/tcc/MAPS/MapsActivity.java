@@ -874,8 +874,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     type[0] = ("car_wash");
                                     return;
                                 }
-                                else if (type[0].equals("Evento")) {
-                                    adicionaMarkerGoogle("event");
+                                else if (type[0].equals("Eventos")) {
+                                    type[0] = ("event");
                                     return;
                                 } else if (type[0].equals("Oficina")) {
                                     type[0] = ("car_repair");
@@ -951,7 +951,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 } else if (type[0].equals("LavaJato")) {
                                    adicionaMarkerGoogle("car_wash");
                                     return;
-                                } else if (type[0].equals("Evento")) {
+                                } else if (type[0].equals("Eventos")) {
                                     adicionaMarkerGoogle("event");
                                     return;
                                 } else if (type[0].equals("Oficina")) {
