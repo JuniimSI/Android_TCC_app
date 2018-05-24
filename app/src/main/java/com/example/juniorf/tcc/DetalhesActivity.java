@@ -594,6 +594,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                                     MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
                                         if (locationDAO.delete(lat, lng, getApplicationContext())) {
                                             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+					    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             Bundle bundle = new Bundle();
                                             bundle.putString("emailOrigem", (emailOrigem));
                                             i.putExtras(bundle);
