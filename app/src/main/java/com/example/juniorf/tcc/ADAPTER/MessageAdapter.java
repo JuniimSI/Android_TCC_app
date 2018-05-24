@@ -2,6 +2,7 @@ package com.example.juniorf.tcc.ADAPTER;
 
 import android.content.Context;
 
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,12 +117,6 @@ public class MessageAdapter extends BaseExpandableListAdapter {
 			email.setCompoundDrawablesWithIntrinsicBounds(0, 0,
 					R.drawable.ic_down, 0);
 		}
-        
-        
-        
-        
-        
-        
         
         return convertView;
 

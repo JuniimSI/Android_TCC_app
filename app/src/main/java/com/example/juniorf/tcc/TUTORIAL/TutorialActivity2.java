@@ -3,23 +3,22 @@ package com.example.juniorf.tcc.TUTORIAL;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.juniorf.tcc.MainActivity;
 import com.example.juniorf.tcc.R;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
-public class TutorialActivity extends AppIntro {
+public class TutorialActivity2 extends AppIntro {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addSlide(AppIntroFragment.newInstance("Crie seus pontos", "Para criar seu ponto de interesse, toque e segure o local onde seu ponto deve ser cadastrado e preencha o formulário", R.drawable.insira_seu_ponto, Color.parseColor("#5472AE")));
-        addSlide(AppIntroFragment.newInstance("Edite seus pontos", "Para editar a localização de um ponto de interesse seu, basta clicar, segurar e arrastar", R.drawable.edite_seu_ponto, Color.parseColor("#5472AE")));
-        addSlide(AppIntroFragment.newInstance("Apague seus pontos", "Para apagar seu ponto de interesse, basta dar um clique no icone de lixeira na tela de detalhes de tal ponto", R.drawable.clique_para_apagar, Color.parseColor("#5472AE")));
-
+        addSlide(AppIntroFragment.newInstance("Veja informações rápidas", "Ao clicar em um ponto, surgirá uma janela de informações contendo suas principais informações", R.drawable.veja_sua_janela_de_informacoes, Color.parseColor("#4378E1")));
+        addSlide(AppIntroFragment.newInstance("Detalhes e Mensagens", "Ao dar um clique longo sobre a janela de informações, você é redirecionado para a tela de detalhes do ponto seleconado", R.drawable.veja_tela_detalhes, Color.parseColor("#4378E1")));
+        addSlide(AppIntroFragment.newInstance("Calcule rotas", "Clique em um ponto de interesse, visualize a janela de informações e clique sobre a janela para gerar a rota", R.drawable.gere_sua_rota, Color.parseColor("#4378E1")));
+        addSlide(AppIntroFragment.newInstance("Detalhes profundos","Para obter os detalhes mais a fundos de cada ponto de interesse, clique no botão com o olhinho", R.drawable.veja_seus_detalhes, Color.parseColor("#4378E1")));
 
         // OPTIONAL METHODS
         // Override bar/separator color.
@@ -31,7 +30,7 @@ public class TutorialActivity extends AppIntro {
     @Override
     public void onSkipPressed() {
 
-        Intent n = new Intent(this, TutorialActivity2.class);
+        Intent n = new Intent(this, TutorialActivity3.class);
         n.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(n);
 
@@ -44,7 +43,7 @@ public class TutorialActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        Intent intent =new Intent(this,TutorialActivity2.class);
+        Intent intent =new Intent(this,TutorialActivity3.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         startActivity(intent);

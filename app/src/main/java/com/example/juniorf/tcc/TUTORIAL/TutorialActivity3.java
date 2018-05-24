@@ -3,23 +3,20 @@ package com.example.juniorf.tcc.TUTORIAL;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.juniorf.tcc.MainActivity;
 import com.example.juniorf.tcc.R;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
-public class TutorialActivity extends AppIntro {
+public class TutorialActivity3 extends AppIntro {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addSlide(AppIntroFragment.newInstance("Crie seus pontos", "Para criar seu ponto de interesse, toque e segure o local onde seu ponto deve ser cadastrado e preencha o formulário", R.drawable.insira_seu_ponto, Color.parseColor("#5472AE")));
-        addSlide(AppIntroFragment.newInstance("Edite seus pontos", "Para editar a localização de um ponto de interesse seu, basta clicar, segurar e arrastar", R.drawable.edite_seu_ponto, Color.parseColor("#5472AE")));
-        addSlide(AppIntroFragment.newInstance("Apague seus pontos", "Para apagar seu ponto de interesse, basta dar um clique no icone de lixeira na tela de detalhes de tal ponto", R.drawable.clique_para_apagar, Color.parseColor("#5472AE")));
-
+        addSlide(AppIntroFragment.newInstance("Crie seus tipos", "Para criar seu tipo, você deve estar inserindo um ponto de interesse e clicar no botão ao lado da lista de tipos e preencher o formulário", R.drawable.insira_seu_tipo, Color.parseColor("#5472AE")));
+        addSlide(AppIntroFragment.newInstance("Pesquise por Tipo", "Ao clicar, você tem acesso a todos os tipos já cadastrados na aplicação e pode obter resultados filtrados pelos tais tipos", R.drawable.pesquise_por_tipo, Color.parseColor("#5472AE")));
 
         // OPTIONAL METHODS
         // Override bar/separator color.
@@ -31,7 +28,7 @@ public class TutorialActivity extends AppIntro {
     @Override
     public void onSkipPressed() {
 
-        Intent n = new Intent(this, TutorialActivity2.class);
+        Intent n = new Intent(this, TutorialActivity4.class);
         n.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(n);
 
@@ -44,7 +41,7 @@ public class TutorialActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        Intent intent =new Intent(this,TutorialActivity2.class);
+        Intent intent =new Intent(this,TutorialActivity4.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         startActivity(intent);

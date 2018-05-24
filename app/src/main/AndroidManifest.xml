@@ -71,7 +71,31 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".TUTORIAL.TutorialActivity"
-        	    android:screenOrientation="portrait">
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.juniorf.tcc.MainActivity" />
+        </activity>
+        <activity android:name=".TUTORIAL.TutorialActivity2"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.juniorf.tcc.MainActivity" />
+        </activity>
+        <activity android:name=".TUTORIAL.TutorialActivity3"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.juniorf.tcc.MainActivity" />
+        </activity>
+        <activity android:name=".TUTORIAL.TutorialActivity4"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.juniorf.tcc.MainActivity" />
+        </activity>
+        <activity android:name=".TUTORIAL.TutorialActivity5"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.juniorf.tcc.MainActivity" />

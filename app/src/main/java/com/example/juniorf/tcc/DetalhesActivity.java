@@ -333,6 +333,8 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         detalhes[0] = person.getString("detalhes");
                         detalhes[1] = person.getString("horario_funcionamento");
+                        if(detalhes[0]==null)
+                            detalhes[0] = "Sem detalhes";
                         AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
                             builder.setTitle("Detalhes");
                             builder.setMessage(detalhes[0] + "\n\nHorário de funcionamento: \n\n" + detalhes[1]);
@@ -409,10 +411,10 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
         floatingInsertMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 LayoutInflater layoutInflater = LayoutInflater.from(DetalhesActivity.this);
                 View pront = layoutInflater.inflate(R.layout.insert_message, null);
-                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(DetalhesActivity.this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetalhesActivity.this);
                 alertDialogBuilder.setView(pront);
 
                 final EditText nome = (EditText) pront.findViewById(R.id.textAnswer);
@@ -447,7 +449,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         return;
                     }
                 });
-                android.app.AlertDialog alert = alertDialogBuilder.create();
+                AlertDialog alert = alertDialogBuilder.create();
                 alert.show();
 
             } 
@@ -644,7 +646,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
 
         LayoutInflater layoutInflater = LayoutInflater.from(DetalhesActivity.this);
         View pront = layoutInflater.inflate(R.layout.insert_answer, null);
-        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(DetalhesActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetalhesActivity.this);
         alertDialogBuilder.setView(pront);
 
         final EditText nome = (EditText) pront.findViewById(R.id.textAnswer);
@@ -669,7 +671,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                 return;
             }
         });
-        android.app.AlertDialog alert = alertDialogBuilder.create();
+        AlertDialog alert = alertDialogBuilder.create();
         alert.show();
         hideProgressInsert();
         }else{
