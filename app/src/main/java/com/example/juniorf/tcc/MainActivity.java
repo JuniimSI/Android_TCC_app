@@ -1,7 +1,9 @@
 package com.example.juniorf.tcc;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.content.Context;
@@ -9,6 +11,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.location.LocationManager;
 import android.support.design.widget.NavigationView;
@@ -39,13 +43,17 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Places;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int REQUEST_PERMISSIONS_CODE = 0;
     /////////////////////////////////////////////////
     private GoogleApiClient client;
     private ProgressDialog pDialog;
@@ -54,10 +62,15 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient googleApiClient;
     private String email;
     private ImageView ivInitMapButton;
+    private MaterialDialog mMaterialDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        solicitaPermissao();
 
         ////DADOS activity
 
@@ -212,6 +225,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private boolean verificaGPS(){
+        ///////////////////Permission//////////////////////
+        solicitaPermissao();
+
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -282,5 +298,38 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public void solicitaPermissao(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this,ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+              if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, ACCESS_FINE_LOCATION)) {
+                   // Caso o usuário tenha negado a permissão anteriormente, e não tenha marcado o check "nunca mais mostre este alerta"
+                   // Podemos mostrar um alerta explicando para o usuário porque a permissão é importante.
+                   callDialog( new String[]{Manifest.permission.ACCESS_FINE_LOCATION} );
+              } else {
+                  // Solicita a permissão
+                  ActivityCompat.requestPermissions(MainActivity.this,new String[]{ACCESS_FINE_LOCATION},REQUEST_PERMISSIONS_CODE);
+              }
+        } else {
+              // Tudo OK, podemos prosseguir.
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch( requestCode ){
+            case REQUEST_PERMISSIONS_CODE:
+                for( int i = 0; i < permissions.length; i++ ){
+                    if( permissions[i].equalsIgnoreCase( ACCESS_FINE_LOCATION )
+                        && grantResults[i] == PackageManager.PERMISSION_GRANTED ){
+                    }
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void callDialog( final String[] permissions ){
+        ActivityCompat.requestPermissions(MainActivity.this, permissions, REQUEST_PERMISSIONS_CODE);
     }
 }

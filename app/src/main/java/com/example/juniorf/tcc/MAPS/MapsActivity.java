@@ -2,6 +2,7 @@ package com.example.juniorf.tcc.MAPS;
 
 import android.Manifest;
 import android.app.TimePickerDialog;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -83,6 +84,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.graphics.Color.BLUE;
 
 public class MapsActivity extends FragmentActivity implements  OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -122,6 +124,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     public EditText de;
     public EditText ate;
 
+    public int REQUEST_PERMISSIONS_CODE = 0;
+
 
     List<String> Languages = new ArrayList<String>();
     Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
@@ -146,6 +150,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     progressType.dismiss();
                 }
                 catch (JSONException e) {
+
                     UtilMethods.error(MapsActivity.this);
                     e.printStackTrace();
                 }
@@ -186,7 +191,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         });
 
 
-
+        
+        
         ///////////////////Progress////////////////////////
         progressRota = new ProgressDialog(this);
         progressRota.setMessage("Aguardando calcular a rota...");
@@ -594,7 +600,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         mMap = googleMap;
         rotas = new ArrayList<LatLng>();
         lista = new ArrayList<MyLocation>();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         if (mMap != null) {
@@ -1302,7 +1308,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     private LatLng displayLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(apiClient);
@@ -1347,5 +1353,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         
         builder.show();
     }
+
+
+    
+
+
 
 }

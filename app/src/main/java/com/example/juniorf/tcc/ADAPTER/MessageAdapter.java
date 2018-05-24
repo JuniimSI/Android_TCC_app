@@ -104,7 +104,7 @@ public class MessageAdapter extends BaseExpandableListAdapter {
 
         
         ///If expanded
-        
+       
         if (isExpanded) {
 			email.setTypeface(null, Typeface.BOLD);
 			email.setCompoundDrawablesWithIntrinsicBounds(0, 0,
