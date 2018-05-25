@@ -933,7 +933,6 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());
                             preencheSpinner();
-                            Toast.makeText(MapsActivity.this, "Inserido com sucesso!", Toast.LENGTH_SHORT).show();
 
                             if(type[0]!=null) {
                                 eraseMarkers();
