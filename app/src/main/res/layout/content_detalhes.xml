@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/gradient_color"
+            android:elevation="5dp"
             android:foregroundGravity="center"
             android:gravity="center_vertical"
             android:minHeight="110dp"
@@ -81,7 +82,7 @@
                         android:text=""
                         android:textColor="@color/branco"
                         android:textSize="17sp" />
-                    
+
                 </LinearLayout>
 
             </LinearLayout>

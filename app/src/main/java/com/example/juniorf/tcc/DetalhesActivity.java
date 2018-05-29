@@ -333,7 +333,7 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         JSONObject person = (JSONObject) jsonArray.get(i);
                         detalhes[0] = person.getString("detalhes");
                         detalhes[1] = person.getString("horario_funcionamento");
-                        if(detalhes[0]==null)
+                        if(detalhes[0]==null || detalhes[0].equals(""))
                             detalhes[0] = "Sem detalhes";
                         AlertDialog.Builder builder = new AlertDialog.Builder(DetalhesActivity.this);
                             builder.setTitle("Detalhes");

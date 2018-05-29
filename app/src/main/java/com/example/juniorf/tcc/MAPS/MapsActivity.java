@@ -150,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     progressType.dismiss();
                 }
                 catch (JSONException e) {
-
+                    progressType.dismiss();
                     UtilMethods.error(MapsActivity.this);
                     e.printStackTrace();
                 }
@@ -159,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onErrorResponse(VolleyError error) {
                 UtilMethods.error(MapsActivity.this);
+                progressType.dismiss();
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
             }
         });
@@ -914,7 +915,19 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             n[0] = nome.getText().toString();
                             n[1] = telefone.getText().toString();
                             n[2] = detalhes.getText().toString();
-                            n[3] = (de.getText().toString())+ " às "+(ate.getText().toString());
+                            String des = "";
+                            String ates = "";
+                            if(de.getText().toString() == null || de.getText().toString().equals("") ){
+                                des = " -- ";
+                            }else{
+                                des = de.getText().toString();
+                            }
+                            if(ate.getText().toString() == null || ate.getText().toString().equals("") ){
+                                ates = " -- ";
+                            }else{
+                                ates = ate.getText().toString();
+                            }
+                            n[3] = des + " às "+ ates;
 
                             MyLocation location = new MyLocation();
                             MyLocationDAO locationDAO = new MyLocationDAO(getApplicationContext());
