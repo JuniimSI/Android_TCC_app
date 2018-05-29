@@ -252,7 +252,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         adicionaMarkerGoogle("car_wash");
                     } else if (nome.equals("Eventos")) {
                         eraseMarkers();
-                        serviceSearch("evento");
+                        serviceSearch("eventos");
                     } else if (nome.equals("Oficina")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_repair");
@@ -408,7 +408,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.troca)).position(latlng).draggable(true).title(lista.get(i).getNome() +"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
             }
         }
-        else if(type.equals("evento")){
+        else if(type.equals("eventos")){
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
@@ -875,7 +875,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                     return;
                                 }
                                 else if (type[0].equals("Eventos")) {
-                                    type[0] = ("event");
+                                    type[0] = ("eventos");
                                     return;
                                 } else if (type[0].equals("Oficina")) {
                                     type[0] = ("car_repair");
@@ -951,7 +951,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                    adicionaMarkerGoogle("car_wash");
                                     return;
                                 } else if (type[0].equals("Eventos")) {
-                                    adicionaMarkerGoogle("event");
+                                    adicionaMarkerGoogle("eventos");
                                     return;
                                 } else if (type[0].equals("Oficina")) {
                                     adicionaMarkerGoogle("car_repair");
