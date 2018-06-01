@@ -71,6 +71,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("ERRO", error+"r");
+                UtilMethods.error(t);
             }
         })
         {
@@ -103,6 +104,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
         {
@@ -127,6 +129,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onResponse(String response) {
                 Log.i("RESPONSE_update", response + "kk");
+                Toast.makeText(t, "Mensagem atualizada com sucesso!", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 
@@ -185,6 +188,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("TAG", "Error: " + error.getMessage());
+                UtilMethods.error(c);
             }
         });
         // Adding request to request queue
@@ -198,13 +202,14 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         StringRequest request = new StringRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/delete_message.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(t, "Mensagem deletada com sucesso!", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("ERRO", error+"r");
+                UtilMethods.error(t);
             }
         })
 
@@ -225,7 +230,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    public void insertAnswer(final long idMessage, final String emailDestino, final String emailOrigem, final String answer, Context t){
+    public void insertAnswer(final long idMessage, final String emailDestino, final String emailOrigem, final String answer, final Context t){
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonInsertAnswer, new Response.Listener<String>() {
             @Override
@@ -237,6 +242,7 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
         {
@@ -255,18 +261,20 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    public void deleteAnswer(final Integer id, Context t) {
+    public void deleteAnswer(final Integer id, final Context t) {
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, "http://grainmapey.pe.hu/GranMapey/delete_answer.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("RESPONSE_DELETE", "+"+response);
+                Toast.makeText(t, "Resposta deletada com sucesso!", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("ERRO", error+"r");
+                UtilMethods.error(t);
             }
         })
 
@@ -284,18 +292,20 @@ public class MessageDAO extends  AbstractDAO<Mensagem> {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    public void updateAnswer(final Integer id, final String message, Context t ){
+    public void updateAnswer(final Integer id, final String message, final Context t ){
         RequestQueue mRequestQueue = Volley.newRequestQueue(t);
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonUpdateAnswer, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("RESPONSE_update", response + "kk");
+                Toast.makeText(t, "Resposta atualizada com sucesso!", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(Tag, error+"r");
+                UtilMethods.error(t);
             }
         })
         {

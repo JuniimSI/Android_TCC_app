@@ -739,7 +739,6 @@ public class DetalhesActivity extends AppCompatActivity implements GoogleApiClie
                         mensagemSelecionada.getLocal(), getApplicationContext());
                 lista.remove(mensagemSelecionada);
                 mensagemSelecionada = null;
-
                 finish();
             }
         });

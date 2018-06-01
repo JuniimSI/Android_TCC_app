@@ -73,6 +73,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                             ret = email.getString("email").toString();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            UtilMethods.error(t);
                         }
                     }
                 },
@@ -81,6 +82,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error.Response",  ret+error.getMessage()+"erro" );
+                        UtilMethods.error(t);
                     }
                 }
         );
@@ -199,6 +201,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
             @Override
             public void onResponse(String response) {
                 Log.i(Tag, response+"a");
+                Toast.makeText(t, "Inserido com sucesso, pesquise por tipos para encontrar seus pontos..", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 
@@ -268,6 +271,7 @@ public class MyLocationDAO extends AbstractDAO<MyLocation>{
         StringRequest request = new StringRequest(Request.Method.POST, urlJsonDeleteLocation, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Toast.makeText(applicationContext, "Inserido com sucesso, pesquise por tipos para encontrar seus pontos..", Toast.LENGTH_SHORT).show();
             }
         },  new Response.ErrorListener(){
 

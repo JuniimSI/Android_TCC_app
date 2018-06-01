@@ -126,9 +126,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
 
     public int REQUEST_PERMISSIONS_CODE = 0;
 
-
     List<String> Languages = new ArrayList<String>();
-    Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato};
+    Integer[] images = { 0, R.drawable.restaurante, R.drawable.banco, R.drawable.bar, R.drawable.eventos, R.drawable.oficina,R.drawable.hospital_posto, R.drawable.posto_gasolina,R.drawable.troca,  R.drawable.venda, R.drawable.museum, R.drawable.lavajato, R.drawable.escola};
 
 
     public void preencheSpinner(){
@@ -233,9 +232,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
                 //types.getSelectedItem()
-                if (posicao == 0 && verificaGPS()==true)
-                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                else if(verificaGPS() == false){
+                if(verificaGPS() == false){
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }else {
                     String nome = parent.getItemAtPosition(posicao).toString();
@@ -251,6 +248,9 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                     } else if (nome.equals("LavaJato")) {
                         eraseMarkers();
                         adicionaMarkerGoogle("car_wash");
+                    }else if(nome.equals("Escolas")){
+                        eraseMarkers();
+                        adicionaMarkerGoogle("school");
                     } else if (nome.equals("Eventos")) {
                         eraseMarkers();
                         serviceSearch("eventos");
@@ -292,6 +292,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         this.email = bundle.getString("emailOrigem");
+
+
         //Components
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -310,8 +312,20 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
     }
 
     public void drawMarkers(String type){
-        if(type.equals("restaurant")){
-
+        if(type.equals("school")){
+            if(lista.size() == 0){
+                Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            tipoz="escola";
+            for (int i = 0; i < lista.size(); i++) {
+                LatLng latlng = new LatLng(lista.get(i).getLat(), lista.get(i).getLng());
+                if(lista.get(i).getId_reference()!=null)
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.escola)).position(latlng).draggable(true).title(lista.get(i).getNome() +"\n"+lista.get(i).getHorarioFuncionamento()).snippet(lista.get(i).getId_reference()));
+                else
+                    mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.escola)).position(latlng).draggable(true).title(lista.get(i).getNome()+"\n"+lista.get(i).getHorarioFuncionamento()).snippet(String.valueOf(lista.get(i).getId())));
+            }
+        } else if(type.equals("restaurant")){
             if(lista.size() == 0){
                 Toast.makeText(this, "Nenhum ponto encontrado.", Toast.LENGTH_SHORT).show();
                 return;
@@ -488,7 +502,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
             tvLanguage.setText(Languages.get(position));
             tvLanguage.setTextColor(Color.rgb(75, 180, 225));
             ImageView img = (ImageView) layout.findViewById(R.id.imgLanguage);
-            if(position>11){
+            if(position>12){
                 position = position;
                 img.setImageResource(R.mipmap.ic_marker); ///Setar imagem padrao caso esteja fora do range
             } else
@@ -858,11 +872,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 type[0] = parent.getItemAtPosition(position).toString();
-                                if (position == 0)
-                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if(type[0].equals("Tipos"))
-                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if (type[0].equals("Restaurante")) {
+                                
+                                if (type[0].equals("Restaurante")) {
                                     type[0] = ("restaurant");
                                     return;
                                 } else if (type[0].equals("Banco")) {
@@ -874,8 +885,10 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                                 } else if (type[0].equals("LavaJato")) {
                                     type[0] = ("car_wash");
                                     return;
-                                }
-                                else if (type[0].equals("Eventos")) {
+                                } else if (type[0].equals("Escolas")){
+                                    type[0] = ("school");
+                                    return;
+                                } else if (type[0].equals("Eventos")) {
                                     type[0] = ("eventos");
                                     return;
                                 } else if (type[0].equals("Oficina")) {
@@ -909,7 +922,7 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                         });
                     }
 
-                    alertDialogBuilder.setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    alertDialogBuilder.setCancelable(false).setPositiveButton("Adicionar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             n[0] = nome.getText().toString();
@@ -946,52 +959,8 @@ public class MapsActivity extends FragmentActivity implements  OnMapReadyCallbac
                             location.setEmail(email);
                             locationDAO.insert(location, getApplicationContext());
                             preencheSpinner();
-
-                            if(type[0]!=null) {
-                                eraseMarkers();
-                                if(type[0].equals("Tipos"))
-                                    Toast.makeText(MapsActivity.this, "Selecione um Tipo", Toast.LENGTH_SHORT).show();
-                                else if (type[0].equals("Restaurante")) {
-                                    adicionaMarkerGoogle("restaurant");
-                                    return;
-                                } else if (type[0].equals("Banco")) {
-                                   adicionaMarkerGoogle("bank");
-                                    return;
-                                } else if (type[0].equals("Bar")) {
-                                   adicionaMarkerGoogle("bar");
-                                    return;
-                                } else if (type[0].equals("LavaJato")) {
-                                   adicionaMarkerGoogle("car_wash");
-                                    return;
-                                } else if (type[0].equals("Eventos")) {
-                                    adicionaMarkerGoogle("eventos");
-                                    return;
-                                } else if (type[0].equals("Oficina")) {
-                                    adicionaMarkerGoogle("car_repair");
-                                    return;
-                                } else if (type[0].equals("Venda")) {
-                                   adicionaMarkerGoogle("venda");
-                                    return;
-                                } else if (type[0].equals("Troca")) {
-                                    adicionaMarkerGoogle("troca");
-                                    return;
-                                } else if (type[0].equals("Hospital/Postos")) {
-                                    adicionaMarkerGoogle("hospital");
-                                    return;
-                                } else if (type[0].equals("Posto de Gasolina")) {
-                                    adicionaMarkerGoogle("gas_station");
-                                    return;
-                                } else if (type[0].equals("Museus")) {
-                                    adicionaMarkerGoogle("museum");
-                                    return;
-                                } else {
-                                    serviceSearch(type[0]);
-                                    return;
-                                }
-                            }
-                            preencheSpinner();
                         }
-                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
